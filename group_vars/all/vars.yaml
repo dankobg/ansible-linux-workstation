@@ -10,7 +10,7 @@ sudo_password: "{{ vault_sudo_password }}"
 
 git_user_name: "{{ vault_git_user_name }}"
 git_user_email: "{{ vault_git_user_email }}"
-git_core_editor: "hx" # or code --wait --new-window
+git_core_editor: "helix" # or code --wait --new-window
 
 # github_pat: "{{ vault_github_pat }}" # @TODO: need to renew it
 
