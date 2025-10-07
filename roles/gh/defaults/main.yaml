@@ -1,0 +1,4 @@
+---
+# defaults file for gh
+
+gh_state: latest

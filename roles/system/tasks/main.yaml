@@ -1,0 +1,93 @@
+---
+# tasks file for system
+
+- name: Set a hostname
+  ansible.builtin.hostname:
+    name: "{{ hostname }}"
+
+- name: Copy hosts file
+  ansible.builtin.template:
+    src: hosts.j2
+    dest: /etc/hosts
+    owner: root
+    group: root
+    mode: "0644"
+
+- name: Ensure user config environment.d directory exists
+  ansible.builtin.file:
+    path: "/home/{{ username }}/.config/environment.d"
+    state: directory
+    owner: root
+    group: root
+    mode: "0755"
+  register: system_config_environment_dir
+
+- name: Copy common-vars.conf
+  ansible.builtin.template:
+    src: common-vars.conf.j2
+    dest: "{{ system_config_environment_dir.path }}/common-vars.conf"
+    owner: root
+    group: root
+    mode: "0644"
+
+- name: Update the system
+  community.general.pacman:
+    upgrade: true
+
+- name: Install development tools and libraries group packages
+  community.general.pacman:
+    name:
+      - base-devel
+    state: latest
+    extra_args: --needed
+    update_cache: true
+
+# @TODO: improve based on var or facts about cpu type
+- name: Install Microcode
+  community.general.pacman:
+    name: intel-ucode
+    state: latest
+
+- name: Install common core packages
+  community.general.pacman:
+    name: "{{ system_common_packages }}"
+    state: latest
+    force: true
+    extra_args: --noconfirm --overwrite '*'
+
+- name: Remove not needed packages
+  community.general.pacman:
+    name: "{{ system_absent_packages }}"
+    state: absent
+
+- name: Ensure sleep.conf.d directory exists
+  ansible.builtin.file:
+    path: /etc/systemd/sleep.conf.d
+    state: directory
+    owner: root
+    group: root
+    mode: "0755"
+
+- name: Copy systemd sleep.conf
+  ansible.builtin.template:
+    src: sleep.conf.j2
+    dest: /etc/systemd/sleep.conf.d/sleep.conf
+    owner: root
+    group: root
+    mode: "0644"
+
+- name: Ensure login.conf.d directory exists
+  ansible.builtin.file:
+    path: /etc/systemd/login.conf.d
+    state: directory
+    owner: root
+    group: root
+    mode: "0755"
+
+- name: Copy systemd login.conf
+  ansible.builtin.template:
+    src: login.conf.j2
+    dest: /etc/systemd/login.conf.d/login.conf
+    owner: root
+    group: root
+    mode: "0644"

@@ -1,0 +1,49 @@
+---
+# tasks file for multimedia
+
+- name: Install multimedia codecs
+  community.general.pacman:
+    name:
+      # Audio codecs
+      - faac
+      - faad2
+      - a52dec
+      - lame
+      - libmad
+      - libmpcdec
+      - opus
+      - libvorbis
+      - opencore-amr
+      - speex
+      # Image codecs
+      - libwebp
+      - libavif
+      - libheif
+      - libjxl
+      # Video codecs
+      - aom
+      - dav1d
+      - rav1e
+      - svt-av1
+      - schroedinger
+      - libdv
+      - x264
+      - x265
+      - libde265
+      - libmpeg2
+      - xvidcore
+      - libtheora
+      - libvpx
+      # Gstreamer
+      - gstreamer
+      - gst-libav
+      - gst-plugins-bad
+      - gst-plugins-base
+      - gst-plugins-good
+      # Main
+      - ffmpeg
+      - ffmpegthumbnailer
+      - vlc
+      - mpv
+      - vlc-plugin-ffmpeg
+    state: latest

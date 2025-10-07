@@ -1,0 +1,6 @@
+---
+# handlers file for fstrim
+
+- name: Reload systemd daemon
+  ansible.builtin.systemd:
+    daemon_reload: true

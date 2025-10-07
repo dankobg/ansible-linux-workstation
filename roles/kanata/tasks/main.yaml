@@ -1,0 +1,10 @@
+---
+# tasks file for kanata
+
+- name: Install kanata
+  kewlfft.aur.aur:
+    name: kanata-bin
+    use: paru
+    state: present
+  become: true
+  become_user: aur_builder

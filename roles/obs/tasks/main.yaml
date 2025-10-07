@@ -1,0 +1,7 @@
+---
+# tasks file for obs
+
+- name: Install obs studio
+  community.general.pacman:
+    name: obs-studio
+    state: "{{ obs_state }}"

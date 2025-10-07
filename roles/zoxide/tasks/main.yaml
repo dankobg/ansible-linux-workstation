@@ -1,0 +1,7 @@
+---
+# tasks file for zoxide
+
+- name: Install zoxide
+  community.general.pacman:
+    name: zoxide
+    state: "{{ zoxide_state }}"

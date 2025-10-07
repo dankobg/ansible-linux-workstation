@@ -1,0 +1,7 @@
+---
+# tasks file for deno
+
+- name: Install Deno
+  community.general.pacman:
+    name: deno
+    state: "{{ deno_state }}"

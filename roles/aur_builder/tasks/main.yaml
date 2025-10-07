@@ -1,0 +1,33 @@
+---
+# tasks file for aur_builder
+
+- name: Setup aur_builder user
+  ansible.builtin.user:
+    name: aur_builder
+    create_home: true
+
+- name: Allow aur_builder to sudo pacman without password
+  ansible.builtin.lineinfile:
+    path: /etc/sudoers.d/aur_builder-allow-to-sudo-pacman
+    state: present
+    line: "aur_builder ALL=(ALL) NOPASSWD: /usr/bin/pacman"
+    validate: /usr/sbin/visudo -cf %s
+    create: true
+    owner: root
+    group: root
+    mode: '0755'
+
+# @TODO: figure how to delete aur_builder user
+# because each aur install role can be called standalone
+# cleanup could be after each role but again, i would be creating, deleting users many times...
+
+# - name: Remove the user aur_builder
+#   ansible.builtin.user:
+#     name: aur_builder
+#     state: absent
+#     remove: true
+
+# - name: remove aur_builder sudoers file
+#   ansible.builtin.file:
+#     path: "/etc/sudoers.d/aur_builder-allow-to-sudo-pacman"
+#     state: absent

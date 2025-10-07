@@ -1,0 +1,10 @@
+---
+# tasks file for ksops
+
+- name: Install ksops
+  kewlfft.aur.aur:
+    name: kustomize-sops
+    use: paru
+    state: present
+  become: true
+  become_user: aur_builder

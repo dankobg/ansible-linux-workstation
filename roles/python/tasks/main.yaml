@@ -1,0 +1,9 @@
+---
+# tasks file for python
+
+- name: Install python
+  community.general.pacman:
+    name:
+      - python
+      - uv
+    state: "{{ python_state }}"

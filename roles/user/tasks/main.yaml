@@ -1,0 +1,17 @@
+---
+# tasks file for user
+
+- name: Ensure groups exist
+  ansible.builtin.group:
+    name: "{{ item }}"
+    state: present
+  loop: "{{ user_groups }}"
+
+- name: Setup user
+  ansible.builtin.user:
+    name: "{{ username }}"
+    password: "{{ user_hashed_password }}"
+    create_home: true
+    groups: "{{ user_groups }}"
+    append: true
+    state: present

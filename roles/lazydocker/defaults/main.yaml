@@ -1,0 +1,4 @@
+---
+# defaults file for lazydocker
+
+lazydocker_state: latest

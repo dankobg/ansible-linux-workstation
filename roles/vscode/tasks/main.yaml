@@ -1,0 +1,10 @@
+---
+# tasks file for vscode
+
+- name: Install vscode
+  kewlfft.aur.aur:
+    name: visual-studio-code-bin
+    use: paru
+    state: present
+  become: true
+  become_user: aur_builder

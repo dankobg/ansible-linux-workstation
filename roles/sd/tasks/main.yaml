@@ -1,0 +1,7 @@
+---
+# tasks file for sd
+
+- name: Install sd
+  community.general.pacman:
+    name: sd
+    state: "{{ sd_state }}"

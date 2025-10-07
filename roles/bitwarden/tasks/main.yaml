@@ -1,0 +1,12 @@
+---
+# tasks file for bitwarden
+
+- name: Install Bitwarden
+  community.general.flatpak:
+    name: com.bitwarden.desktop
+    state: "{{ bitwarden_state }}"
+
+- name: Install Bitwarden CLI
+  community.general.pacman:
+    name: bitwarden-cli
+    state: "{{ bitwarden_cli_state }}"

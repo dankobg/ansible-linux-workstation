@@ -1,0 +1,22 @@
+---
+# tasks file for ssh
+
+- name: Ensure config directory exists
+  ansible.builtin.file:
+    path: "/home/{{ username }}/.ssh"
+    state: directory
+    owner: "{{ username }}"
+    group: "{{ username }}"
+    mode: "0755"
+  register: ssh_dir
+
+- name: Copy SSH keys
+  ansible.builtin.template:
+    src: "keys/{{ item }}.j2"
+    dest: "{{ ssh_dir.path }}/{{ item }}"
+    owner: "{{ username }}"
+    group: "{{ username }}"
+    mode: "0600"
+  loop:
+    - id_ed25519
+    - id_ed25519.pub

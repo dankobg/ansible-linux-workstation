@@ -1,0 +1,7 @@
+---
+# tasks file for rclone
+
+- name: Install rclone
+  community.general.pacman:
+    name: rclone
+    state: "{{ rclone_state }}"

@@ -1,0 +1,7 @@
+---
+# tasks file for mkcert
+
+- name: Install mkcert
+  community.general.pacman:
+    name: mkcert
+    state: "{{ mkcert_state }}"

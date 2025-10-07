@@ -1,0 +1,44 @@
+---
+# tasks file for docker
+
+- name: Install Docker
+  community.general.pacman:
+    name:
+      - docker
+      - docker-buildx
+      - docker-compose
+    state: "{{ docker_state }}"
+
+- name: Add user to docker group
+  ansible.builtin.user:
+    name: "{{ username }}"
+    groups: docker
+    append: true
+  when: docker_state == 'latest'
+
+- name: Ensure docker daemon directory exists
+  ansible.builtin.file:
+    path: /etc/docker
+    state: directory
+    owner: root
+    group: root
+    mode: "0755"
+  register: docker_daemon_dir
+  when: docker_state == 'latest'
+
+- name: Copy daemon.json
+  ansible.builtin.template:
+    src: daemon.json.j2
+    dest: "{{ docker_daemon_dir.path }}/daemon.json"
+    owner: root
+    group: root
+    mode: "0644"
+  notify: Restart docker daemon
+  when: docker_state == 'latest'
+
+- name: Ensure Docker is started and enabled at boot
+  ansible.builtin.service:
+    name: docker
+    state: started
+    enabled: true
+  when: docker_state == 'latest'

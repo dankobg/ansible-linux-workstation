@@ -1,0 +1,7 @@
+---
+# tasks file for vlc
+
+- name: Install VLC
+  community.general.pacman:
+    name: vlc
+    state: "{{ vlc_state }}"

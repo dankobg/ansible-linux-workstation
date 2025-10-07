@@ -1,0 +1,133 @@
+---
+username: danko
+hostname: arch
+user_hashed_password: "{{ vault_user_hashed_password }}"
+
+grub_default: Windows
+grub_default_fallback: saved
+
+sudo_password: "{{ vault_sudo_password }}"
+
+git_user_name: "{{ vault_git_user_name }}"
+git_user_email: "{{ vault_git_user_email }}"
+git_core_editor: "hx" # or code --wait --new-window
+
+# github_pat: "{{ vault_github_pat }}" # @TODO: need to renew it
+
+bitwarden_cli_state: absent # conflicts with latest nodejs, it uses lts...
+
+binaries_path: /usr/local/bin
+
+system_hosts:
+  - juicer-dev.xyz
+  - mail.juicer-dev.xyz
+  - traefik.juicer-dev.xyz
+
+roles_selected:
+  - aur_builder
+  - pacman
+  - zsh
+  - fish
+  - system
+  - nvidia
+  - firmware
+  - grub
+  - fstrim
+  - zram
+  - user
+  - ssh
+  - multimedia
+  - flatpak
+  - fonts
+  - gnome
+  - nautilus
+  - age
+  - ansible
+  - audacity
+  - bat
+  - beekeeper_studio
+  - bitwarden
+  - bleachbit
+  # - blender
+  - bruno
+  - btop
+  - czkawka
+  # - davinciresolve
+  - dconf_editor
+  - delta
+  - deno
+  - direnv
+  - discord
+  - docker
+  - dust
+  - extension_manager
+  - eza
+  - fastfetch
+  - fd
+  - firefox
+  - flatseal
+  - fzf
+  - gearlever
+  - gh
+  - ghostty
+  - gimp
+  - git
+  - glow
+  - go
+  - google_chrome
+  - handbrake
+  - helix
+  - helm
+  # - inkscape
+  - jq
+  - just
+  - k3d
+  - k9s
+  - kanata
+  - kde_connect
+  # - kdenlive
+  # - krita
+  - ksops
+  - kubectl
+  - kubie
+  - kustomize
+  - lazydocker
+  - lazygit
+  - libreoffice
+  - localsend
+  - logseq
+  - mkcert
+  - ncdu
+  - network_tools
+  - nix
+  - node
+  # - obs
+  - onefetch
+  - pika_backup
+  - protoc
+  - python
+  - qbittorrent
+  - rclone
+  - restic
+  - ripgrep
+  - rsync
+  # - rust
+  - sd
+  - slack
+  - smartmontools
+  - smile
+  - sops
+  - syncthing
+  - task
+  - thunderbird
+  - timeshift
+  - tlrc
+  - virtmanager
+  - vlc
+  - vscode
+  - xh
+  - yazi
+  - yq
+  - zed
+  - zellij
+  - zoxide

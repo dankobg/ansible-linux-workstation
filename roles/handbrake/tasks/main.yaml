@@ -1,0 +1,9 @@
+---
+# tasks file for handbrake
+
+- name: Install HandBrake
+  community.general.pacman:
+    name:
+      - handbrake
+      - handbrake-cli
+    state: "{{ handbrake_state }}"

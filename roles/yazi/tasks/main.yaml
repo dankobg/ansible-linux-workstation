@@ -1,0 +1,7 @@
+---
+# tasks file for yazi
+
+- name: Install yazi
+  community.general.pacman:
+    name: yazi
+    state: "{{ yazi_state }}"

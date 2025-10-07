@@ -1,0 +1,4 @@
+---
+# defaults file for dust
+
+dust_state: latest

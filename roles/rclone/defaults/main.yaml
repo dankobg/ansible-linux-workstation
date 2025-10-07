@@ -1,0 +1,4 @@
+---
+# defaults file for rclone
+
+rclone_state: latest

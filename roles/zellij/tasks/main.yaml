@@ -1,0 +1,7 @@
+---
+# tasks file for zellij
+
+- name: Install zellij
+  community.general.pacman:
+    name: zellij
+    state: "{{ zellij_state }}"

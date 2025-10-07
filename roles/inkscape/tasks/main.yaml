@@ -1,0 +1,7 @@
+---
+# tasks file for inkscape
+
+- name: Install Inkscape
+  community.general.pacman:
+    name: inkscape
+    state: "{{ inkscape_state }}"

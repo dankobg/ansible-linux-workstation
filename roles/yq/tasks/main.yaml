@@ -1,0 +1,7 @@
+---
+# tasks file for yq
+
+- name: Install yq
+  community.general.pacman:
+    name: yq
+    state: "{{ yq_state }}"

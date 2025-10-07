@@ -1,0 +1,204 @@
+---
+# tasks file for git
+
+- name: Install git
+  community.general.pacman:
+    name: git
+    state: "{{ git_state }}"
+
+- name: Configure git config
+  when: git_state == 'latest'
+  block:
+    - name: Ensure .gitconfig does not exist
+      ansible.builtin.file:
+        path: "/home/{{ username }}/.gitconfig"
+        state: absent
+
+    - name: Ensure git config directory exists
+      ansible.builtin.file:
+        path: "/home/{{ username }}/.config/git"
+        state: directory
+        owner: "{{ username }}"
+        group: "{{ username }}"
+        mode: "0755"
+      register: git_config_dir
+
+    - name: Ensure git config file exists
+      ansible.builtin.file:
+        path: "{{ git_config_dir.path }}/config"
+        state: touch
+        owner: "{{ username }}"
+        group: "{{ username }}"
+        mode: "0644"
+        modification_time: preserve
+        access_time: preserve
+      register: git_config_file
+
+    - name: Set column ui
+      community.general.git_config:
+        file: "{{ git_config_file.dest }}"
+        name: column.ui
+        scope: file
+        value: auto
+        state: present
+
+    - name: Set branch sort
+      community.general.git_config:
+        file: "{{ git_config_file.dest }}"
+        name: branch.sort
+        scope: file
+        value: -committerdate
+        state: present
+
+    - name: Set tag sort
+      community.general.git_config:
+        file: "{{ git_config_file.dest }}"
+        name: tag.sort
+        scope: file
+        value: version:refname
+        state: present
+
+    - name: Set color ui
+      community.general.git_config:
+        file: "{{ git_config_file.dest }}"
+        name: color.ui
+        scope: file
+        value: auto
+        state: present
+
+    - name: Set color status
+      community.general.git_config:
+        file: "{{ git_config_file.dest }}"
+        name: color.status
+        scope: file
+        value: auto
+        state: present
+
+    - name: Set color branch
+      community.general.git_config:
+        file: "{{ git_config_file.dest }}"
+        name: color.branch
+        scope: file
+        value: auto
+        state: present
+
+    - name: Set diff algorithm
+      community.general.git_config:
+        file: "{{ git_config_file.dest }}"
+        name: diff.algorithm
+        scope: file
+        value: histogram
+        state: present
+
+    - name: Set diff colorMoved
+      community.general.git_config:
+        file: "{{ git_config_file.dest }}"
+        name: diff.colorMoved
+        scope: file
+        value: zebra
+        state: present
+
+    - name: Set core editor
+      community.general.git_config:
+        file: "{{ git_config_file.dest }}"
+        name: core.editor
+        scope: file
+        value: "{{ git_core_editor }}"
+        state: present
+
+    - name: Set user name
+      community.general.git_config:
+        file: "{{ git_config_file.dest }}"
+        name: user.name
+        scope: file
+        value: "{{ git_user_name }}"
+        state: present
+
+    - name: Set user email
+      community.general.git_config:
+        file: "{{ git_config_file.dest }}"
+        name: user.email
+        scope: file
+        value: "{{ git_user_email }}"
+        state: present
+
+    - name: Set init default branch
+      community.general.git_config:
+        file: "{{ git_config_file.dest }}"
+        name: init.defaultBranch
+        scope: file
+        value: main
+        state: present
+
+    - name: Set rebase autoSquash
+      community.general.git_config:
+        file: "{{ git_config_file.dest }}"
+        name: rebase.autoSquash
+        scope: file
+        value: true
+        state: present
+
+    - name: Set rebase autoStash
+      community.general.git_config:
+        file: "{{ git_config_file.dest }}"
+        name: rebase.autoStash
+        scope: file
+        value: true
+        state: present
+
+    - name: Set rebase updateRefs
+      community.general.git_config:
+        file: "{{ git_config_file.dest }}"
+        name: rebase.updateRefs
+        scope: file
+        value: true
+        state: present
+
+    - name: Set pull rebase
+      community.general.git_config:
+        file: "{{ git_config_file.dest }}"
+        name: pull.rebase
+        scope: file
+        value: true
+        state: present
+
+    - name: Set fetch prune
+      community.general.git_config:
+        file: "{{ git_config_file.dest }}"
+        name: fetch.prune
+        scope: file
+        value: true
+        state: present
+
+    - name: Set help autocorrect
+      community.general.git_config:
+        file: "{{ git_config_file.dest }}"
+        name: help.autocorrect
+        scope: file
+        value: prompt
+        state: present
+
+    - name: Set rerere
+      community.general.git_config:
+        file: "{{ git_config_file.dest }}"
+        name: rerere.enabled
+        scope: file
+        value: true
+        state: present
+
+    - name: Set rerere autoupdate
+      community.general.git_config:
+        file: "{{ git_config_file.dest }}"
+        name: rerere.autoupdate
+        scope: file
+        value: true
+        state: present
+
+- name: Remove configs
+  ansible.builtin.file:
+    path: "{{ item }}"
+    state: absent
+  loop:
+    - "/home/{{ username }}/.config/git"
+    - "/home/{{ username }}/.gitconfig"
+  when: git_state == 'absent'

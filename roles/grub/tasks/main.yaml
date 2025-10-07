@@ -1,0 +1,33 @@
+---
+# tasks file for grub
+
+- name: Install os-prober
+  community.general.pacman:
+    name: os-prober
+    state: "{{ grub_os_prober_state }}"
+
+- name: Get grub file content
+  ansible.builtin.slurp:
+    src: /boot/grub/grub.cfg
+  register: grub_data
+
+- name: Decode the base64 encoded grub file content
+  ansible.builtin.set_fact:
+    grub_content: "{{ grub_data.content | b64decode }}"
+
+- name: Find all grub entries
+  ansible.builtin.set_fact:
+    grub_entries: "{{ grub_content | regex_findall(\"menuentry '(.*?)'\", '\\1') | unique }}"
+
+- name: Find first grub entry matching grub_default
+  ansible.builtin.set_fact:
+    grub_default_entry: "{{ grub_entries | select('search', grub_default) | list | first | default(grub_default_fallback) }}"
+
+- name: Copy grub configuration file
+  ansible.builtin.template:
+    src: grub.j2
+    dest: /etc/default/grub
+    owner: root
+    group: root
+    mode: "0644"
+  notify: Regenerate GRUB configuration file

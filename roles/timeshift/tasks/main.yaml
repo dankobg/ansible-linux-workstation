@@ -1,0 +1,7 @@
+---
+# tasks file for timeshift
+
+- name: Install Timeshift
+  community.general.pacman:
+    name: timeshift
+    state: "{{ timeshift_state }}"

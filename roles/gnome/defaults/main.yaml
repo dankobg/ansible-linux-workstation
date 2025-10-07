@@ -1,0 +1,10 @@
+---
+# defaults file for gnome
+
+gnome_group_packages:
+  - gnome
+  
+gnome_packages: []
+
+gnome_absent_packages:
+  - epiphany

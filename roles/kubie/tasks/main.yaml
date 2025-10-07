@@ -1,0 +1,7 @@
+---
+# tasks file for kubie
+
+- name: Install kubie
+  community.general.pacman:
+    name: kubie
+    state: "{{ kubie_state }}"

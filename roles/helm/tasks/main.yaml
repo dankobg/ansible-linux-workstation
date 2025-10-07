@@ -1,0 +1,7 @@
+---
+# tasks file for helm
+
+- name: Install Helm
+  community.general.pacman:
+    name: helm
+    state: "{{ helm_state }}"

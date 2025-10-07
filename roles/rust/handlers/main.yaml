@@ -1,0 +1,19 @@
+---
+# handlers file for rust
+
+- name: Update rust toolchain
+  become: true
+  become_user: "{{ username }}"
+  ansible.builtin.command:
+    cmd: rustup update
+  changed_when: >
+    {{ (str_lines
+      | map('trim')
+      | reject('equalto', '')
+      | select('search', 'rustc')
+      | reject('search', 'unchanged')
+      | list
+      | length) > 0
+    }}
+
+  register: rustup_update

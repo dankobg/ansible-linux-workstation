@@ -1,0 +1,35 @@
+---
+# defaults file for system
+
+system_hosts: []
+
+system_common_packages:
+  - "7zip"
+  - bc
+  - bzip2
+  - curl
+  - gawk
+  - git
+  - gzip
+  - htop
+  - iptables-nft
+  - less
+  - make
+  - man-db
+  - nano
+  - openssl
+  - power-profiles-daemon
+  - pwgen
+  - sed
+  - tar
+  - tree
+  - unzip
+  - wget
+  - wl-clipboard
+  - xdg-user-dirs
+  - zip
+
+system_absent_packages:
+  - vi
+  - vim
+  - iptables

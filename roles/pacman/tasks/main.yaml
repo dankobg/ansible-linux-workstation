@@ -1,0 +1,150 @@
+---
+# tasks file for pacman
+
+- name: Install reflector
+  community.general.pacman:
+    name: reflector
+    state: latest
+
+- name: Install pacman-contrib
+  community.general.pacman:
+    name: pacman-contrib
+    state: latest
+
+- name: Copy pacman.conf
+  ansible.builtin.template:
+    src: pacman.conf.j2
+    dest: /etc/pacman.conf
+    owner: "{{ username }}"
+    group: "{{ username }}"
+    mode: "0644"
+
+- name: Copy pacman-contrib
+  ansible.builtin.template:
+    src: pacman-contrib.j2
+    dest: /etc/conf.d/pacman-contrib
+    owner: "{{ username }}"
+    group: "{{ username }}"
+    mode: "0644"
+
+- name: Copy reflector.conf
+  ansible.builtin.template:
+    src: reflector.conf.j2
+    dest: /etc/xdg/reflector/reflector.conf
+    owner: root
+    group: root
+    mode: "0644"
+
+- name: Ensure individual systemd override directories exist
+  ansible.builtin.file:
+    path: "/etc/systemd/system/{{ item }}.d"
+    state: directory
+    owner: root
+    group: root
+    mode: "0755"
+  loop:
+    - paccache.service
+    - paccache.timer
+    - reflector.service
+    - reflector.timer
+
+- name: Copy paccache and reflector systemd service and timer override files
+  ansible.builtin.template:
+    src: "{{ item }}.j2"
+    dest: "/etc/systemd/system/{{ item }}.d/override.conf"
+    owner: root
+    group: root
+    mode: "0644"
+  loop:
+    - paccache.service
+    - paccache.timer
+    - reflector.service
+    - reflector.timer
+  notify: Reload systemd daemon
+
+- name: Start and enable paccache timer
+  ansible.builtin.service:
+    name: fstrim.timer
+    state: started
+    enabled: true
+
+- name: Start and enable reflector timer
+  ansible.builtin.service:
+    name: reflector.timer
+    state: started
+    enabled: true
+
+- name: Check if paru is installed # noqa command-instead-of-shell
+  become: true
+  become_user: "{{ username }}"
+  ansible.builtin.shell:
+    cmd: "command -v paru"
+  register: pacman_paru_installed
+  changed_when: false
+  failed_when: pacman_paru_installed.rc != 0 and pacman_paru_installed.stderr != ""
+
+- name: Get paru installed version data
+  become: true
+  become_user: "{{ username }}"
+  ansible.builtin.command:
+    cmd: "paru --version"
+  register: pacman_paru_installed_version_data
+  changed_when: false
+  failed_when: >
+    pacman_paru_installed_version_data.rc != 0 or (pacman_paru_installed_version_data.rc == 0 and 'paru' not in pacman_paru_installed_version_data.stdout)
+  when: pacman_paru_installed.rc == 0
+
+- name: Set paru installed version
+  ansible.builtin.set_fact:
+    pacman_paru_installed_version: "{{ pacman_paru_installed_version_data.stdout.split()[1] if pacman_paru_installed.rc == 0 else '' }}"
+
+- name: Get the paru latest release data
+  ansible.builtin.uri:
+    url: "{{ pacman_paru_latest_version_url }}"
+    return_content: true
+    headers:
+      Authorization: "{{ 'Bearer ' + github_pat if github_pat is defined else omit }}"
+  register: pacman_paru_latest_release_data
+  retries: 3
+  delay: 5
+
+- name: Set the paru release version
+  ansible.builtin.set_fact:
+    pacman_paru_release_version: "{{ pacman_paru_latest_release_data.json.tag_name if pacman_paru_state == 'latest' else pacman_paru_state }}"
+
+- name: Install paru AUR helper
+  when: pacman_paru_force_download or pacman_paru_installed_version != pacman_paru_release_version
+  block:
+    - name: Ensure opt paru build dir exists
+      ansible.builtin.file:
+        path: "/opt/paru"
+        state: directory
+        owner: aur_builder
+        group: aur_builder
+        mode: "0755"
+      register: pacman_paru_build_dir
+
+    - name: Clone paru repository
+      become: true
+      become_user: aur_builder
+      ansible.builtin.git:
+        repo: https://aur.archlinux.org/paru.git
+        version: master
+        dest: "{{ pacman_paru_build_dir.path }}"
+        depth: 1
+        clone: true
+
+    - name: Build and install paru
+      become: true
+      become_user: aur_builder
+      environment:
+        RUSTUP_TOOLCHAIN: stable
+      ansible.builtin.command:
+        chdir: "{{ pacman_paru_build_dir.path }}"
+        cmd: "makepkg -si --noconfirm --noprogressbar"
+      changed_when: false
+
+    - name: Ensure paru opt directory removed
+      ansible.builtin.file:
+        path: "{{ pacman_paru_build_dir.path }}"
+        state: absent

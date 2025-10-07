@@ -1,0 +1,7 @@
+---
+# tasks file for onefetch
+
+- name: Install onefetch
+  community.general.pacman:
+    name: onefetch
+    state: "{{ onefetch_state }}"

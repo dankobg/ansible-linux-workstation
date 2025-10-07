@@ -1,0 +1,7 @@
+---
+# tasks file for xh
+
+- name: Install xh
+  community.general.pacman:
+    name: xh
+    state: "{{ xh_state }}"

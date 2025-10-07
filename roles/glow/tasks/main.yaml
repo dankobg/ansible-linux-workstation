@@ -1,0 +1,7 @@
+---
+# tasks file for glow
+
+- name: Install glow
+  community.general.pacman:
+    name: glow
+    state: "{{ glow_state }}"

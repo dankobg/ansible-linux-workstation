@@ -1,0 +1,7 @@
+---
+# tasks file for restic
+
+- name: Install restic
+  community.general.pacman:
+    name: restic
+    state: "{{ restic_state }}"

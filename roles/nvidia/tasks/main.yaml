@@ -1,0 +1,42 @@
+---
+# tasks file for nvidia
+
+- name: Blacklist nouveau
+  ansible.builtin.copy:
+    src: blacklist-nouveau.conf
+    dest: /etc/modprobe.d/blacklist-nouveau.conf
+    owner: "root"
+    group: "root"
+    mode: "0644"
+
+- name: Install Nvidia GPU drivers
+  community.general.pacman:
+    name:
+      - nvidia
+      - nvidia-utils
+      - nvidia-settings
+      - vdpauinfo
+      - libvdpau
+      - libvdpau-va-gl
+      - libva-nvidia-driver
+      - lib32-nvidia-utils
+      - mesa-utils
+    state: latest
+    update_cache: true
+
+- name: Check the kernel module version
+  ansible.builtin.command:
+    cmd: "modinfo -F version nvidia"
+  register: nvidia_kernel_module_status
+  changed_when: false
+  failed_when: >
+    not (nvidia_kernel_module_status.stdout is match('^\d+\.\d+(\.\d+)?$') or 'Module nvidia not found' in nvidia_kernel_module_status.stdout)
+  retries: 10
+  delay: 30
+  until: >
+    nvidia_kernel_module_status.stdout is match('^\d+\.\d+(\.\d+)?$')
+
+- name: Display the kernel module status
+  ansible.builtin.debug:
+    msg: "{{ nvidia_kernel_module_status.stdout }}"
+  failed_when: false

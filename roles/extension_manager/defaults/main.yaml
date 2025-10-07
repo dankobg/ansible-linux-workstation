@@ -1,0 +1,18 @@
+---
+# defaults file for extension_manager
+
+extension_manager_state: latest
+
+extension_manager_gnome_extensions_dir: "/home/{{ username }}/.local/share/gnome-shell/extensions"
+# extension_manager_gnome_extensions_dir: /usr/share/gnome-shell/extensions
+
+extension_manager_gnome_extensions_url: https://extensions.gnome.org
+extension_manager_gnome_extensions:
+  # https://extensions.gnome.org/extension/4269/alphabetical-app-grid
+  - id: 4269
+    state: present
+    status: enabled
+  # https://extensions.gnome.org/extension/615/appindicator-support
+  - id: 615
+    state: present
+    status: enabled

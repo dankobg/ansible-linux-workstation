@@ -1,0 +1,7 @@
+---
+# tasks file for rsync
+
+- name: Install rsync
+  community.general.pacman:
+    name: rsync
+    state: "{{ rsync_state }}"

@@ -1,0 +1,4 @@
+---
+# defaults file for protoc
+
+protoc_state: latest

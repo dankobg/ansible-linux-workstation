@@ -1,0 +1,6 @@
+---
+# handlers file for grub
+
+- name: Regenerate GRUB configuration file # noqa no-changed-when
+  ansible.builtin.command:
+    cmd: grub-mkconfig -o /boot/grub/grub.cfg

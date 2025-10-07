@@ -1,0 +1,10 @@
+---
+# tasks file for tlrc
+
+- name: Install tlrc
+  kewlfft.aur.aur:
+    name: tlrc-bin
+    use: paru
+    state: present
+  become: true
+  become_user: aur_builder

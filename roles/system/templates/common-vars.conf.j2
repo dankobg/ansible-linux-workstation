@@ -1,0 +1,37 @@
+EGL_PLATFORM="wayland"
+XDG_SESSION_TYPE="wayland"
+LIBVA_DRIVER_NAME="nvidia"
+__GLX_VENDOR_LIBRARY_NAME="nvidia"
+MOZ_ENABLE_WAYLAND=1
+NVD_BACKEND=direct
+MOZ_DISABLE_RDD_SANDBOX=1
+
+XDG_CONFIG_HOME="$HOME/.config"
+XDG_DATA_HOME="$HOME/.local/share"
+XDG_CACHE_HOME="$HOME/.cache"
+XDG_STATE_HOME="$HOME/.local/state"
+XDG_CONFIG_DIRS="/etc/xdg"
+XDG_DATA_DIRS="/usr/local/share:/usr/share"
+XDG_DESKTOP_DIR="$HOME/Desktop"
+XDG_DOWNLOAD_DIR="$HOME/Downloads"
+
+HISTFILE="$XDG_STATE_HOME/bash/history"
+CUDA_CACHE_PATH="$XDG_CACHE_HOME/nv"
+DOTNET_CLI_HOME="$XDG_DATA_HOME/dotnet"
+ZDOTDIR="$XDG_CONFIG_HOME/zsh"
+EDITOR="hx"
+ANSIBLE_HOME="$XDG_DATA_HOME/ansible"
+GOPATH="/usr/local/lib/go"
+PYTHON_HISTORY="$XDG_STATE_HOME/python"
+NPM_CONFIG_PREFIX="/usr/local/lib/npm-global"
+NPM_CONFIG_INIT_MODULE="$XDG_CONFIG_HOME/npm/config/npm-init.js"
+NPM_CONFIG_CACHE="$XDG_CACHE_HOME/npm"
+NPM_CONFIG_TMP="$XDG_RUNTIME_DIR/npm"
+PNPM_HOME="$XDG_DATA_HOME/pnpm"
+RUSTUP_HOME="/usr/local/lib/rustup"
+CARGO_HOME="/usr/local/lib/cargo"
+
+PATH="/usr/local/bin:/usr/bin:/usr/bin/site_perl:/usr/bin/vendor_perl:/usr/bin/core_perl:$HOME/bin:$HOME/.local/bin:$NPM_CONFIG_PREFIX/bin:$PNPM_HOME:$GOPATH/bin:$CARGO_HOME/bin"
+
+# @TODO: might break nix, i have to check
+# orig path: /usr/local/bin:/usr/bin:/usr/bin/site_perl:/usr/bin/vendor_perl:/usr/bin/core_perl

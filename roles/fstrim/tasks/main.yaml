@@ -1,0 +1,31 @@
+---
+# tasks file for fstrim
+
+- name: Ensure individual override directories exist
+  ansible.builtin.file:
+    path: "/etc/systemd/system/{{ item }}.d"
+    state: directory
+    owner: root
+    group: root
+    mode: "0755"
+  loop:
+    - fstrim.service
+    - fstrim.timer
+
+- name: Copy fstrim systemd service and timer override files
+  ansible.builtin.template:
+    src: "{{ item }}.j2"
+    dest: "/etc/systemd/system/{{ item }}.d/override.conf"
+    owner: root
+    group: root
+    mode: "0644"
+  loop:
+    - fstrim.service
+    - fstrim.timer
+  notify: Reload systemd daemon
+
+- name: Start and enable fstrim timer
+  ansible.builtin.service:
+    name: fstrim.timer
+    state: started
+    enabled: true

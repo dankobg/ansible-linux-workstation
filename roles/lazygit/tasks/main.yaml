@@ -1,0 +1,7 @@
+---
+# tasks file for lazygit
+
+- name: Install lazygit
+  community.general.pacman:
+    name: lazygit
+    state: "{{ lazygit_state }}"

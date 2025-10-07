@@ -1,0 +1,20 @@
+if test -f "$XDG_CONFIG_HOME/fish/fish_env"
+	source "$XDG_CONFIG_HOME/fish/fish_env"
+end
+
+if test -f "$XDG_CONFIG_HOME/fish/.fish_aliases"
+	source "$XDG_CONFIG_HOME/fish/.fish_aliases"
+end
+
+if set -q GHOSTTY_RESOURCES_DIR
+  source "$GHOSTTY_RESOURCES_DIR"/shell-integration/fish/vendor_conf.d/ghostty-shell-integration.fish
+end
+
+set -U fish_greeting
+
+if status is-interactive
+end
+
+direnv hook fish | source
+# zoxide init fish | source
+zoxide init --cmd cd fish | source

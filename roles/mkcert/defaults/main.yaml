@@ -1,0 +1,4 @@
+---
+# defaults file for mkcert
+
+mkcert_state: latest

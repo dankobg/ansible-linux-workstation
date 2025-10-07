@@ -1,0 +1,36 @@
+---
+# tasks file for google_chrome
+
+- name: Install google-chrome
+  kewlfft.aur.aur:
+    name: google-chrome
+    use: paru
+    state: present
+  become: true
+  become_user: aur_builder
+
+- name: Configure Google Chrome
+  when: google_chrome_state == 'latest'
+  block:
+    - name: Ensure managed policies directory exists
+      ansible.builtin.file:
+        path: "{{ google_chrome_managed_policies_dir }}"
+        state: directory
+        owner: root
+        group: root
+        mode: "0755"
+
+    # https://chromeenterprise.google/policies
+    - name: Copy managed policies.json file
+      ansible.builtin.template:
+        src: managed_policies.json.j2
+        dest: "{{ google_chrome_managed_policies_dir }}/managed_policies.json"
+        owner: root
+        group: root
+        mode: "0644"
+
+- name: Ensure removed
+  ansible.builtin.file:
+    path: "{{ google_chrome_managed_policies_dir }}"
+    state: absent
+  when: google_chrome_state == 'absent'

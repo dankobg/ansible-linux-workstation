@@ -1,0 +1,4 @@
+---
+# defaults file for nix
+
+nix_state: latest

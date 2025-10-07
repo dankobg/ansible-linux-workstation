@@ -1,0 +1,18 @@
+---
+# tasks file for ansible
+
+- name: Install Ansible
+  community.general.pacman:
+    name:
+      - ansible
+      - ansible-lint
+      - ansible-language-server
+    state: "{{ ansible_state }}"
+
+- name: Ensure ansible config directory exists
+  ansible.builtin.file:
+    path: "/home/{{ username }}/.config/ansible"
+    state: "{{ 'directory' if ansible_state == 'latest' else 'absent' }}"
+    owner: "{{ username }}"
+    group: "{{ username }}"
+    mode: "0755"

@@ -1,0 +1,33 @@
+---
+# tasks file for zed
+
+- name: Install zed
+  community.general.pacman:
+    name: zed
+    state: "{{ zed_state }}"
+
+- name: Configure zed
+  when: zed_state == 'latest'
+  block:
+    - name: Ensure config directory exists
+      ansible.builtin.file:
+        path: "/home/{{ username }}/.config/zed"
+        state: directory
+        owner: "{{ username }}"
+        group: "{{ username }}"
+        mode: "0755"
+      register: zed_config_dir
+
+    - name: Copy config
+      ansible.builtin.template:
+        src: settings.json.j2
+        dest: "{{ zed_config_dir.path }}/settings.json"
+        owner: "{{ username }}"
+        group: "{{ username }}"
+        mode: "0644"
+
+- name: Ensure removed
+  ansible.builtin.file:
+    path: "/home/{{ username }}/.config/zed"
+    state: absent
+  when: zed_state == 'absent'

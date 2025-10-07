@@ -1,0 +1,7 @@
+---
+# tasks file for thunderbird
+
+- name: Install Thunderbird
+  community.general.pacman:
+    name: thunderbird
+    state: "{{ thunderbird_state }}"

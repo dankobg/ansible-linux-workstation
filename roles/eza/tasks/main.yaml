@@ -1,0 +1,7 @@
+---
+# tasks file for eza
+
+- name: Install eza
+  community.general.pacman:
+    name: eza
+    state: "{{ eza_state }}"

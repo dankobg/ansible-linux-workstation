@@ -1,0 +1,7 @@
+---
+# tasks file for dconf_editor
+
+- name: Install dconf-editor
+  community.general.pacman:
+    name: dconf-editor
+    state: "{{ dconf_editor_state }}"

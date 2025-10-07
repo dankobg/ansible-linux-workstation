@@ -1,0 +1,10 @@
+---
+# tasks file for fonts
+
+# @TODO: maybe convert to 2 tasks, each passing array to install, remove
+- name: Install fonts
+  community.general.pacman:
+    name: "{{ item.name | default(item) }}"
+    state: "{{ item.state | default('latest') }}"
+  loop: "{{ fonts_packages }}"
+  notify: Update font cache

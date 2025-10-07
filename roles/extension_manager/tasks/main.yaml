@@ -1,0 +1,63 @@
+---
+# tasks file for extension_manager
+
+- name: Install Extension Manager
+  community.general.flatpak:
+    name: com.mattjakeman.ExtensionManager
+    state: "{{ extension_manager_state }}"
+
+- name: Get the gnome shell version
+  ansible.builtin.command:
+    cmd: gnome-shell --version
+  register: extension_manager_gnome_shell_version_data
+  changed_when: false
+
+- name: Get extensions info data
+  ansible.builtin.uri:
+    url: "https://extensions.gnome.org/extension-info/?pk={{ item.id }}&shell_version={{ extension_manager_gnome_shell_version_data.stdout.split()[2] | int }}"
+    return_content: true
+  register: extension_manager_gnome_extensions_info
+  loop: "{{ extension_manager_gnome_extensions }}"
+  retries: 3
+  delay: 5
+
+- name: Ensure extensions dir exists
+  ansible.builtin.file:
+    path: "{{ extension_manager_gnome_extensions_dir }}"
+    state: directory
+    owner: "{{ username }}"
+    group: "{{ username }}"
+    mode: "0755"
+
+- name: Download remote extensions
+  ansible.builtin.get_url:
+    url: "{{ extension_manager_gnome_extensions_url }}/{{ item.json.download_url }}"
+    dest: "{{ extension_manager_gnome_extensions_dir }}/{{ item.json.uuid }}.zip"
+    owner: "{{ username }}"
+    group: "{{ username }}"
+    mode: "0644"
+  loop: "{{ extension_manager_gnome_extensions_info.results }}"
+
+- name: Install extensions
+  become: true
+  become_user: "{{ username }}"
+  ansible.builtin.command:
+    chdir: "{{ extension_manager_gnome_extensions_dir }}"
+    cmd: >
+      gnome-extensions
+      {{ 'install --force' if (extension_manager_gnome_extensions | selectattr('id', '==', item.json.pk) | first).state == 'present' else 'uninstall' }}
+      {{ item.json.uuid }}.zip
+  loop: "{{ extension_manager_gnome_extensions_info.results }}"
+  changed_when: false
+
+- name: Remove extensions archive files
+  ansible.builtin.file:
+    path: "{{ item.json.uuid }}.zip"
+    state: absent
+  loop: "{{ extension_manager_gnome_extensions_info.results }}"
+
+# @TODO: there is a bug with gdbus, when you do `gnome-extensions install UUUID`
+# you need to restart wayland session for it to appear as installed and you can't do
+# gnome-extensions enable UUID because it doesn't see any extensions, gnome-extensions list returns empty list
+# so it's hard to automate easily, i install it and then when you restart, you might have to just enable it via extension-manager app
+# @TODO: enable/disable extensions

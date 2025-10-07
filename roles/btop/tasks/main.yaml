@@ -1,0 +1,7 @@
+---
+# tasks file for btop
+
+- name: Install btop
+  community.general.pacman:
+    name: btop
+    state: "{{ btop_state }}"

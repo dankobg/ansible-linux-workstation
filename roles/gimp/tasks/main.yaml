@@ -1,0 +1,7 @@
+---
+# tasks file for gimp
+
+- name: Install gimp
+  community.general.pacman:
+    name: gimp
+    state: "{{ gimp_state }}"

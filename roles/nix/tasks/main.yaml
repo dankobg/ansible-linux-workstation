@@ -1,0 +1,22 @@
+---
+# tasks file for nix
+
+- name: Install nix
+  community.general.pacman:
+    name: nix
+    state: "{{ nix_state }}"
+
+- name: Copy nix.conf
+  ansible.builtin.template:
+    src: nix.conf.j2
+    dest: /etc/nix/nix.conf
+    owner: root
+    group: root
+    mode: "0644"
+
+- name: Start and enable nix-daemon service
+  ansible.builtin.service:
+    name: nix-daemon
+    state: started
+    enabled: true
+    

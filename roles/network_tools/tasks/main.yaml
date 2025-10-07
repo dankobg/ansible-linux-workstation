@@ -1,0 +1,11 @@
+---
+# tasks file for network_tools
+
+- name: Install network tools
+  community.general.pacman:
+    name: "{{ item.name }}"
+    state: "{{ item.state }}"
+  loop: "{{ network_tools_apps }}"
+
+# @TODO: maybe pass array instead of looping
+# and separate task for absent tools

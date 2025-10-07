@@ -1,0 +1,7 @@
+---
+# tasks file for jq
+
+- name: Install jq
+  community.general.pacman:
+    name: jq
+    state: "{{ jq_state }}"

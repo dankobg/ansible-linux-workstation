@@ -1,0 +1,7 @@
+---
+# tasks file for smartmontools
+
+- name: Install smartmontools
+  community.general.pacman:
+    name: smartmontools
+    state: "{{ smartmontools_state }}"

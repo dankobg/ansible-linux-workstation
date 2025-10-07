@@ -1,0 +1,33 @@
+---
+# tasks file for ghostty
+
+- name: Install ghostty
+  community.general.pacman:
+    name: ghostty
+    state: "{{ ghostty_state }}"
+
+- name: Configure ghostty
+  when: ghostty_state == 'latest'
+  block:
+    - name: Ensure config directory exists
+      ansible.builtin.file:
+        path: "/home/{{ username }}/.config/ghostty"
+        state: directory
+        owner: "{{ username }}"
+        group: "{{ username }}"
+        mode: "0755"
+      register: ghostty_config_dir
+
+    - name: Copy config
+      ansible.builtin.template:
+        src: config.j2
+        dest: "{{ ghostty_config_dir.path }}/config"
+        owner: "{{ username }}"
+        group: "{{ username }}"
+        mode: "0644"
+
+- name: Remove config
+  when: ghostty_state == 'absent'
+  ansible.builtin.file:
+    path: "/home/{{ username }}/.config/ghostty"
+    state: absent

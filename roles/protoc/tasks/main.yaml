@@ -1,0 +1,7 @@
+---
+# tasks file for protoc
+
+- name: Install protoc
+  community.general.pacman:
+    name: protobuf
+    state: "{{ protoc_state }}"

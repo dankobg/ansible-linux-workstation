@@ -1,0 +1,7 @@
+---
+# tasks file for gh
+
+- name: Install gh
+  community.general.pacman:
+    name: github-cli
+    state: "{{ gh_state }}"

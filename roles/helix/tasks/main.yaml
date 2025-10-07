@@ -1,0 +1,32 @@
+---
+# tasks file for helix
+
+- name: Install helix
+  community.general.pacman:
+    name: helix
+    state: "{{ helix_state }}"
+
+- name: Configure helix
+  when: helix_state == 'latest'
+  block:
+    - name: Copy config
+      ansible.builtin.template:
+        src: config.toml.j2
+        dest: "/home/{{ username }}/.config/helix/config.toml"
+        owner: "{{ username }}"
+        group: "{{ username }}"
+        mode: "0644"
+
+    - name: Copy languages file
+      ansible.builtin.template:
+        src: languages.toml.j2
+        dest: "/home/{{ username }}/.config/helix/languages.toml"
+        owner: "{{ username }}"
+        group: "{{ username }}"
+        mode: "0644"
+
+- name: Ensure config removed
+  ansible.builtin.file:
+    path: "/home/{{ username }}/.config/helix"
+    state: absent
+  when: helix_state == 'absent'

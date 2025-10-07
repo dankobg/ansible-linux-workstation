@@ -1,0 +1,7 @@
+---
+# tasks file for bleachbit
+
+- name: Install Bleachbit
+  community.general.pacman:
+    name: bleachbit
+    state: "{{ bleachbit_state }}"

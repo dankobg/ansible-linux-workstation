@@ -1,0 +1,48 @@
+---
+# tasks file for node
+
+- name: Install node
+  community.general.pacman:
+    name:
+      - nodejs
+      - npm
+      - pnpm
+    state: "{{ node_state }}"
+
+- name: Ensure npm global directory exists
+  ansible.builtin.file:
+    path: "{{ node_npm_global_dir }}"
+    state: directory
+    owner: "{{ username }}"
+    group: "{{ username }}"
+    mode: "0755"
+  when: node_state == 'latest'
+
+- name: Copy global npmrc
+  ansible.builtin.template:
+    src: npmrc.j2
+    dest: /etc/npmrc
+    owner: "{{ username }}"
+    group: "{{ username }}"
+    mode: "0644"
+
+- name: Install global packages
+  become: true
+  become_user: "{{ username }}"
+  community.general.npm:
+    name: "{{ item.name | default(item) }}"
+    version: "{{ item.version | default(omit) }}"
+    global: true
+    state: "{{ item.state | default('present') }}"
+  environment:
+    NPM_CONFIG_PREFIX: "{{ node_npm_global_dir }}"
+  loop: "{{ node_global_packages }}"
+
+- name: Ensure remove
+  ansible.builtin.file:
+    path: "{{ item }}"
+    state: absent
+  loop:
+    - /usr/local/lib/npm-global
+    - /etc/npmrc
+  when: node_state == 'absent'

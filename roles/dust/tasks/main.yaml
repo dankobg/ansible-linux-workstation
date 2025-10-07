@@ -1,0 +1,7 @@
+---
+# tasks file for dust
+
+- name: Install dust
+  community.general.pacman:
+    name: dust
+    state: "{{ dust_state }}"

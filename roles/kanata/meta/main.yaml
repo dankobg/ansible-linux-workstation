@@ -1,0 +1,5 @@
+---
+# meta file for kanata
+
+dependencies:
+  - role: aur_builder

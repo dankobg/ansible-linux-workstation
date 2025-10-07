@@ -1,0 +1,52 @@
+---
+# tasks file for firefox
+
+- name: Install Firefox
+  community.general.pacman:
+    name: firefox
+    state: "{{ firefox_state }}"
+
+- name: Configure Firefox
+  when: firefox_state == 'latest'
+  block:
+    - name: Ensure policies directory exists
+      ansible.builtin.file:
+        path: "{{ firefox_policies_dir }}"
+        state: directory
+        owner: root
+        group: root
+        mode: "0755"
+
+      # https://mozilla.github.io/policy-templates
+    - name: Copy policies.json
+      ansible.builtin.template:
+        src: policies.json.j2
+        dest: "{{ firefox_policies_dir }}/policies.json"
+        owner: root
+        group: root
+        mode: "0644"
+
+    - name: Copy autoconfig.js
+      ansible.builtin.template:
+        src: autoconfig.js.j2
+        dest: "{{ firefox_install_dir }}/defaults/pref/autoconfig.js"
+        owner: root
+        group: root
+        mode: "0644"
+
+    - name: Copy firefox.cfg
+      ansible.builtin.template:
+        src: firefox.cfg.j2
+        dest: "{{ firefox_install_dir }}/firefox.cfg"
+        owner: root
+        group: root
+        mode: "0644"
+
+- name: Ensure removed
+  ansible.builtin.file:
+    path: "{{ item }}"
+    state: absent
+  loop:
+    - "{{ firefox_install_dir }}"
+    - "{{ firefox_policies_dir }}"
+  when: firefox_state == 'absent'

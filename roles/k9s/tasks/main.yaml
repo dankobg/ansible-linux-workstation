@@ -1,0 +1,7 @@
+---
+# tasks file for k9s
+
+- name: Install k9s
+  community.general.pacman:
+    name: k9s
+    state: "{{ k9s_state }}"

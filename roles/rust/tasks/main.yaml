@@ -1,0 +1,36 @@
+---
+# tasks file for rust
+
+- name: Manage rust toolchain with rustup
+  when: rust_installation_method == 'rustup'
+  block:
+    - name: Install rustup
+      community.general.pacman:
+        name: rustup
+        state: "{{ rust_rustup_state }}"
+
+- name: Install rust
+  community.general.pacman:
+    name: rust
+    state: "{{ rust_state }}"
+  when: rust_installation_method == 'rust'
+
+# @TODO: automate rustup toolchain, default, check and update
+# # rustup updates are disabled by this build, they are handled by pacman
+# - name: Check for rust updates
+#   become: true
+#   become_user: "{{ username }}"
+#   ansible.builtin.command:
+#     cmd: rustup check
+#   changed_when: >
+#     {{ (str_lines
+#       | map('trim')
+#       | reject('equalto', '')
+#       | reject('search', 'Up to date')
+#       | reject('search', 'rustup')
+#       | list
+#       | length) > 0
+#     }}
+#   register: rust_rustup_check
+#   notify: Update rust toolchain
+#   when: rustup_installed.rc == 0

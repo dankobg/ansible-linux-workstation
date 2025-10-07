@@ -1,0 +1,30 @@
+---
+# tasks file for go
+
+- name: Install go
+  community.general.pacman:
+    name: go
+    state: "{{ go_state }}"
+
+- name: Ensure gopath directory exists
+  ansible.builtin.file:
+    path: "{{ go_gopath_dir }}"
+    state: directory
+    owner: "{{ username }}"
+    group: "{{ username }}"
+    mode: "0755"
+  when: go_state == 'latest'
+
+- name: Install go tools
+  become: true
+  become_user: "{{ username }}"
+  ansible.builtin.command:
+    cmd: "go install {{ item }}"
+  loop: "{{ go_tools }}"
+  changed_when: (go_tools | length) > 0
+
+- name: Ensure gopath directory removed
+  ansible.builtin.file:
+    path: "{{ go_gopath_dir }}"
+    state: absent
+  when: go_state == 'absent'

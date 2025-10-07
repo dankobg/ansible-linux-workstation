@@ -1,0 +1,28 @@
+---
+# defaults file for fonts
+
+fonts_packages:
+  - name: noto-fonts
+    state: latest
+  - name: noto-fonts-emoji
+    state: latest
+  - name: noto-fonts-extra
+    state: latest
+  - name: ttf-caladea
+    state: latest
+  - name: ttf-carlito
+    state: latest
+  - name: ttf-dejavu
+    state: latest
+  - name: ttf-firacode-nerd
+    state: latest
+  - name: ttf-hack-nerd
+    state: latest
+  - name: ttf-iosevka-nerd
+    state: latest
+  - name: ttf-jetbrains-mono-nerd
+    state: latest
+  - name: ttf-liberation
+    state: latest
+  - name: ttf-meslo-nerd
+    state: latest

@@ -1,0 +1,11 @@
+---
+# defaults file for pacman
+
+pacman_pactree_state: latest
+pacman_paru_state: latest
+pacman_paru_latest_version_url: https://api.github.com/repos/Morganamilo/paru/releases/latest
+pacman_paru_force_download: false
+
+# pacman_conf:
+  # some common settings here maybe
+  # like candy, colors, verbose, parallel_downloads etc

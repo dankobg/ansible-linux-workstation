@@ -1,0 +1,7 @@
+---
+# tasks file for localsend
+
+- name: Install Localsend
+  community.general.flatpak:
+    name: org.localsend.localsend_app
+    state: "{{ localsend_state }}"
