@@ -19,4 +19,3 @@
     name: nix-daemon
     state: started
     enabled: true
-    

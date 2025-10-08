@@ -9,7 +9,7 @@
 - name: Configure fish
   when: fish_state == 'latest'
   block:
-    - name: Check if installed
+    - name: Check if installed # noqa command-instead-of-shell
       become: true
       become_user: "{{ username }}"
       ansible.builtin.shell:
@@ -56,17 +56,17 @@
     - "/home/{{ username }}/.config/fish"
   when: fish_state == 'absent'
 
-- name: Get bash path
+- name: Get bash path # noqa command-instead-of-shell
   become: true
   become_user: "{{ username }}"
   ansible.builtin.shell:
     cmd: "command -v bash"
-  register: bash_path
+  register: fish_bash_path
   changed_when: false
   when: fish_state == 'absent'
 
 - name: Change shell to bash
   ansible.builtin.user:
     name: "{{ username }}"
-    shell: "{{ bash_path.stdout }}"
+    shell: "{{ fish_bash_path.stdout }}"
   when: fish_state == 'absent'

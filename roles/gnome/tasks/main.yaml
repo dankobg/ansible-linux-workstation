@@ -1,4 +1,9 @@
 ---
+- name: Set timezone
+  become: true
+  community.general.timezone:
+    name: Europe/Belgrade
+
 - name: Copy mimeapps.list
   ansible.builtin.template:
     src: mimeapps.list.j2
