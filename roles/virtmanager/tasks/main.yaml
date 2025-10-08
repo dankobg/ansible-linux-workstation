@@ -76,3 +76,9 @@
     owner: root
     group: root
     mode: '0644'
+
+- name: Add user to libvirt group
+  ansible.builtin.user:
+    name: "{{ username }}"
+    groups: libvirt
+    append: true
