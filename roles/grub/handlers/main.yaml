@@ -1,6 +1,10 @@
 ---
 # handlers file for grub
 
-- name: Regenerate GRUB configuration file # noqa no-changed-when
+- name: Regenerate GRUB config # noqa no-changed-when
   ansible.builtin.command:
     cmd: grub-mkconfig -o /boot/grub/grub.cfg
+
+- name: Rebuild initramfs # noqa no-changed-when
+  ansible.builtin.command:
+    cmd: mkinitcpio -p linux
