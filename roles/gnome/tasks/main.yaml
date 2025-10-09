@@ -949,3 +949,28 @@
           value: "(26, 23)"
         - key: /org/gtk/settings/file-chooser/window-size
           value: "(1231, 902)"
+
+    - name: Configure virt-manager
+      community.general.dconf:
+        key: "{{ item.key }}"
+        value: "{{ item.value | string if item.filter | default(false) else item.value }}"
+        state: "{{ item.state | default('present') }}"
+      loop:
+        - key: /org/virt-manager/virt-manager/connections/autoconnect
+          value: "['qemu:///system']"
+          filter: true
+        - key: /org/virt-manager/virt-manager/connections/uris
+          value: "['qemu:///system']"
+          filter: true
+        - key: /org/virt-manager/virt-manager/new-vm/cpu-default
+          value: "'default'"
+        - key: /org/virt-manager/virt-manager/new-vm/firmware
+          value: "'uefi'"
+        - key: /org/virt-manager/virt-manager/new-vm/graphics-type
+          value: "'system'"
+        - key: /org/virt-manager/virt-manager/new-vm/storage-format
+          value: "'default'"
+        - key: /org/virt-manager/virt-manager/vmlist-fields/disk-usage
+          value: false
+        - key: /org/virt-manager/virt-manager/vmlist-fields/network-traffic
+          value: false
