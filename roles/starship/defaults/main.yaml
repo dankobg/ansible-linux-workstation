@@ -1,0 +1,4 @@
+---
+# defaults file for starship
+
+starship_state: latest

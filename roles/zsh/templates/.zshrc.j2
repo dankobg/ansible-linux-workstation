@@ -61,6 +61,10 @@ source "$ZDOTDIR/plugins/fzf-tab/fzf-tab.plugin.zsh"
 [[ -f "$ZDOTDIR/.p10k.zsh" ]] && source "$ZDOTDIR/.p10k.zsh"
 
 
+if command -v starship &>/dev/null; then
+	eval "$(starship init zsh)"
+fi
+
 if command -v direnv &>/dev/null; then
 	eval "$(direnv hook zsh)"
 fi

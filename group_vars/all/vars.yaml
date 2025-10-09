@@ -117,6 +117,7 @@ roles_selected:
   - smartmontools
   - smile
   - sops
+  - starship
   - syncthing
   - task
   - thunderbird

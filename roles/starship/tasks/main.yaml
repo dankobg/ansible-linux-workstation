@@ -1,0 +1,24 @@
+---
+# tasks file for starship
+
+- name: Install starship
+  community.general.pacman:
+    name: starship
+    state: "{{ starship_state }}"
+
+- name: Ensure starship config directory exists
+  ansible.builtin.file:
+    path: "/home/{{ username }}/.config/starship"
+    state: directory
+    owner: "{{ username }}"
+    group: "{{ username }}"
+    mode: "0755"
+  register: starship_config_dir
+
+- name: Copy config
+  ansible.builtin.template:
+    src: starship.toml.j2
+    dest: "{{ starship_config_dir.path }}/starship.toml"
+    owner: "{{ username }}"
+    group: "{{ username }}"
+    mode: "0644"
