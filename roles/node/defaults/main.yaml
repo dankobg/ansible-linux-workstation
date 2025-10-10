@@ -5,6 +5,7 @@ node_state: latest
 node_npm_global_dir: /usr/local/lib/npm-global
 
 node_global_packages:
+  - name: "@biomejs/biome"
   - name: "prettier"
   - name: "vscode-langservers-extracted"
   - name: "@ansible/ansible-language-server"
