@@ -41,7 +41,7 @@
       loop:
         - ".fish_aliases"
         - "config.fish"
-        # - "fish_env"
+        - "fish_env"
 
     - name: Change shell to fish
       ansible.builtin.user:
