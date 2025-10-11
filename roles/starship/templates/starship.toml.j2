@@ -246,6 +246,13 @@ fish_indicator = " "
 
 [status]
 disabled = false
+format = '[\[$symbol$common_meaning$signal_name$maybe_int\]]($style) '
+map_symbol = true
+symbol = " "
+not_executable_symbol = "󰜺 "
+not_found_symbol = " "
+sigint_symbol = " "
+signal_symbol = "󱐋 "
 
 [swift]
 symbol = " "
@@ -255,3 +262,7 @@ symbol = " "
 
 [gradle]
 symbol = " "
+
+[character]
+success_symbol = '[ ](bold green)'
+error_symbol = '[ ](bold red)'
