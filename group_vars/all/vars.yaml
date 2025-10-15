@@ -1,7 +1,15 @@
 ---
-username: danko
 hostname: arch
+username: danko
 user_hashed_password: "{{ vault_user_hashed_password }}"
+
+# user:
+#   name: danko
+#   hashed_password: "{{ vault_user_hashed_password }}"
+#   shell: fish
+#   groups:
+#     - wheel
+#     - danko
 
 grub_default: Windows
 grub_default_fallback: saved
@@ -12,7 +20,7 @@ git_user_name: "{{ vault_git_user_name }}"
 git_user_email: "{{ vault_git_user_email }}"
 git_core_editor: "helix" # or code --wait --new-window
 
-# github_pat: "{{ vault_github_pat }}" # @TODO: need to renew it
+github_pat: "{{ vault_github_pat }}"
 
 bitwarden_cli_state: absent # conflicts with latest nodejs, it uses lts...
 
