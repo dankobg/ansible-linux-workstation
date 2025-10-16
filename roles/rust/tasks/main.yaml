@@ -25,6 +25,7 @@
     name: rust
     state: "{{ rust_state }}"
   when: rust_installation_method == 'rust'
+#
 # @TODO: automate rustup toolchain, default, check and update
 # # rustup updates are disabled by this build, they are handled by pacman
 # - name: Check for rust updates
