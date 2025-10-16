@@ -1,6 +1,17 @@
 ---
 # tasks file for rust
 
+- name: Ensure rustup and cargo directories exists
+  ansible.builtin.file:
+    path: "{{ item }}"
+    state: directory
+    owner: "{{ username }}"
+    group: "{{ username }}"
+    mode: "0755"
+  loop:
+    - /usr/local/lib/cargo
+    - /usr/local/lib/rustup
+
 - name: Manage rust toolchain with rustup
   when: rust_installation_method == 'rustup'
   block:
@@ -14,7 +25,6 @@
     name: rust
     state: "{{ rust_state }}"
   when: rust_installation_method == 'rust'
-
 # @TODO: automate rustup toolchain, default, check and update
 # # rustup updates are disabled by this build, they are handled by pacman
 # - name: Check for rust updates
