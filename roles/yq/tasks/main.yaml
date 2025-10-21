@@ -3,5 +3,5 @@
 
 - name: Install yq
   community.general.pacman:
-    name: yq
+    name: go-yq
     state: "{{ yq_state }}"
