@@ -86,7 +86,7 @@ roles_selected:
   - handbrake
   - helix
   - helm
-  # - inkscape
+  - inkscape
   - jq
   - just
   - k3d
