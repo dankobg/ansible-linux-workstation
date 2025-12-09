@@ -715,6 +715,37 @@
           value: "['file:///home/{{ username }}/Music']"
           filter: true
 
+    - name: Configure gnome wm keybindings
+      community.general.dconf:
+        key: "{{ item.key }}"
+        value: "{{ item.value | string if item.filter | default(false) else item.value }}"
+        state: "{{ item.state | default('present') }}"
+      loop:
+        - key: /org/gnome/desktop/wm/keybindings/switch-to-workspace-up
+          value: "['<Super><Alt>Up']"
+          filter: true
+        - key: /org/gnome/desktop/wm/keybindings/switch-to-workspace-down
+          value: "['<Super><Alt>Down']"
+          filter: true
+        - key: /org/gnome/desktop/wm/keybindings/switch-to-workspace-left
+          value: "['<Super><Alt>Left']"
+          filter: true
+        - key: /org/gnome/desktop/wm/keybindings/switch-to-workspace-right
+          value: "['<Super><Alt>Right']"
+          filter: true
+        - key: /org/gnome/desktop/wm/keybindings/move-to-workspace-up
+          value: "['<Super><Shift><Alt>Up']"
+          filter: true
+        - key: /org/gnome/desktop/wm/keybindings/move-to-workspace-down
+          value: "['<Super><Shift><Alt>Down']"
+          filter: true
+        - key: /org/gnome/desktop/wm/keybindings/move-to-workspace-left
+          value: "['<Super><Shift><Alt>Left']"
+          filter: true
+        - key: /org/gnome/desktop/wm/keybindings/move-to-workspace-right
+          value: "['<Super><Shift><Alt>Right']"
+          filter: true
+
     - name: Configure settings-daemon
       community.general.dconf:
         key: "{{ item.key }}"
