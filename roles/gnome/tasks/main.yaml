@@ -715,6 +715,19 @@
           value: "['file:///home/{{ username }}/Music']"
           filter: true
 
+    - name: Configure freedesktop ibust hotkeys (remove to avoid conflicts with text editors)
+      community.general.dconf:
+        key: "{{ item.key }}"
+        value: "{{ item.value | string if item.filter | default(false) else item.value }}"
+        state: "{{ item.state | default('present') }}"
+      loop:
+        - key: /org/freedesktop/ibus/general/hotkey/next-engine
+          value: "[]"
+          filter: true
+        - key: /org/freedesktop/ibus/general/hotkey/next-engine-in-menu
+          value: "[]"
+          filter: true
+
     - name: Configure gnome wm keybindings
       community.general.dconf:
         key: "{{ item.key }}"
