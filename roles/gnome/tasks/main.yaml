@@ -722,11 +722,9 @@
         state: "{{ item.state | default('present') }}"
       loop:
         - key: /org/freedesktop/ibus/general/hotkey/next-engine
-          value: "[]"
-          filter: true
+          value: "@as []"
         - key: /org/freedesktop/ibus/general/hotkey/next-engine-in-menu
-          value: "[]"
-          filter: true
+          value: "@as []"
 
     - name: Configure gnome wm keybindings
       community.general.dconf:
