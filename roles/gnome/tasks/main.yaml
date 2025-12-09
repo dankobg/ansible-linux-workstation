@@ -37,7 +37,7 @@
 
 - name: Copy user account config
   ansible.builtin.template:
-    src: user.js.j2
+    src: user.j2
     dest: "/var/lib/AccountsService/users/{{ username }}"
     owner: root
     group: root
