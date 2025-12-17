@@ -838,8 +838,7 @@
               'org.gnome.Weather.desktop': <{'position': <21>}>,
               'org.gnome.Epiphany.desktop': <{'position': <22>}>,
               'yazi.desktop': <{'position': <23>}>},
-              {'dev.zed.Zed.desktop': <{'position': <0>}>,
-              'zellij.desktop': <{'position': <1>}>}
+              {'zellij.desktop': <{'position': <0>}>}
             ]
         - key: /org/gnome/shell/disable-user-extensions
           value: false
@@ -855,6 +854,7 @@
              'org.gnome.Nautilus.desktop',
              'firefox.desktop',
              'code.desktop',
+             'dev.zed.Zed.desktop',
              'org.gnome.TextEditor.desktop',
              'com.logseq.Logseq.desktop',
              'com.usebruno.Bruno.desktop',
