@@ -37,7 +37,7 @@ roles_selected:
   - zsh
   - fish
   - system
-  - nvidia
+  # - nvidia
   - firmware
   - grub
   - fstrim

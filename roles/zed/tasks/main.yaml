@@ -18,10 +18,26 @@
         mode: "0755"
       register: zed_config_dir
 
-    - name: Copy config
+    - name: Copy settings
       ansible.builtin.template:
         src: settings.json.j2
         dest: "{{ zed_config_dir.path }}/settings.json"
+        owner: "{{ username }}"
+        group: "{{ username }}"
+        mode: "0644"
+
+    - name: Copy keymap
+      ansible.builtin.template:
+        src: keymap.json.j2
+        dest: "{{ zed_config_dir.path }}/keymap.json"
+        owner: "{{ username }}"
+        group: "{{ username }}"
+        mode: "0644"
+
+    - name: Copy snippets
+      ansible.builtin.copy:
+        src: snippets/
+        dest: "{{ zed_config_dir.path }}/snippets"
         owner: "{{ username }}"
         group: "{{ username }}"
         mode: "0644"
