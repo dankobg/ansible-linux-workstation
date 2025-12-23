@@ -9,10 +9,19 @@
 - name: Configure helix
   when: helix_state == 'latest'
   block:
+    - name: Ensure helix config directory exists
+      ansible.builtin.file:
+        path: "/home/{{ username }}/.config/helix"
+        state: directory
+        owner: "{{ username }}"
+        group: "{{ username }}"
+        mode: "0755"
+      register: helix_config_dir
+
     - name: Copy config
       ansible.builtin.template:
         src: config.toml.j2
-        dest: "/home/{{ username }}/.config/helix/config.toml"
+        dest: "{{ helix_config_dir.path }}/config.toml"
         owner: "{{ username }}"
         group: "{{ username }}"
         mode: "0644"
@@ -20,7 +29,7 @@
     - name: Copy languages file
       ansible.builtin.template:
         src: languages.toml.j2
-        dest: "/home/{{ username }}/.config/helix/languages.toml"
+        dest: "{{ helix_config_dir.path }}/languages.toml"
         owner: "{{ username }}"
         group: "{{ username }}"
         mode: "0644"
