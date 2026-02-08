@@ -12,7 +12,7 @@ system_common_packages:
   - git
   - gzip
   - htop
-  - iptables-nft
+  - iptables-nft # fix using the --ask=4 https://gitlab.archlinux.org/pacman/pacman/-/issues/60
   - less
   - make
   - man-db
