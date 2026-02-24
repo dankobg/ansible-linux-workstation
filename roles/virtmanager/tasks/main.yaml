@@ -7,6 +7,7 @@
       - bridge-utils
       - dmidecode
       - dnsmasq
+      - edk2-ovmf
       - iptables-nft
       - libguestfs
       - libvirt
@@ -17,13 +18,13 @@
       - virt-viewer
     state: "{{ virtmanager_state }}"
 
-- name: Start and enable libvirtd service for LX
+- name: Start and enable libvirtd service
   ansible.builtin.service:
     name: libvirtd.service
     state: started
     enabled: true
 
-- name: Start and enable libvirtd socket for QEMU
+- name: Start and enable libvirtd socket
   ansible.builtin.service:
     name: libvirtd.socket
     state: started
@@ -39,7 +40,7 @@
     create: true
     owner: root
     group: root
-    mode: '0644'
+    mode: "0644"
 
 - name: Ensure unix_sock_rw_perms line is set
   ansible.builtin.lineinfile:
@@ -51,7 +52,7 @@
     create: true
     owner: root
     group: root
-    mode: '0644'
+    mode: "0644"
 
 - name: Ensure user is set in qemu.conf
   ansible.builtin.lineinfile:
@@ -63,7 +64,7 @@
     create: true
     owner: root
     group: root
-    mode: '0644'
+    mode: "0644"
 
 - name: Ensure group is set in qemu.conf
   ansible.builtin.lineinfile:
@@ -75,10 +76,13 @@
     create: true
     owner: root
     group: root
-    mode: '0644'
+    mode: "0644"
 
-- name: Add user to libvirt group
+- name: Add user to needed groups
   ansible.builtin.user:
     name: "{{ username }}"
-    groups: libvirt
+    groups:
+      - input
+      - kvm
+      - libvirt
     append: true

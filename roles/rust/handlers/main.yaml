@@ -15,5 +15,4 @@
       | list
       | length) > 0
     }}
-
-  register: rustup_update
+  register: rust_rustup_update
