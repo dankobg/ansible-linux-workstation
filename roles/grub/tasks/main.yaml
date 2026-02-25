@@ -31,21 +31,23 @@
     group: root
     mode: "0644"
   notify: Regenerate GRUB config
+#
+# Not needed since i do dynamic unbind/bind using libvirt hooks
+#
+# - name: Set modprobe vfio
+#   ansible.builtin.template:
+#     src: vfio.conf.j2
+#     dest: /etc/modprobe.d/vfio.conf
+#     owner: root
+#     group: root
+#     mode: "0644"
+#   notify: Rebuild initramfs
 
-- name: Set modprobe vfio
-  ansible.builtin.template:
-    src: vfio.conf.j2
-    dest: /etc/modprobe.d/vfio.conf
-    owner: root
-    group: root
-    mode: "0644"
-  notify: Rebuild initramfs
-
-- name: Set mkinitcpio modules
-  ansible.builtin.template:
-    src: mkinitcpio.modules.conf.j2
-    dest: /etc/mkinitcpio.conf.d/modules.conf
-    owner: root
-    group: root
-    mode: "0644"
-  notify: Rebuild initramfs
+# - name: Set mkinitcpio modules
+#   ansible.builtin.template:
+#     src: mkinitcpio.modules.conf.j2
+#     dest: /etc/mkinitcpio.conf.d/modules.conf
+#     owner: root
+#     group: root
+#     mode: "0644"
+#   notify: Rebuild initramfs
