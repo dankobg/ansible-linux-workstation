@@ -86,3 +86,30 @@
       - kvm
       - libvirt
     append: true
+
+- name: Ensure libvirt hooks directories exist
+  ansible.builtin.file:
+    path: "{{ item }}"
+    state: directory
+    owner: root
+    group: root
+    mode: "0755"
+  loop:
+    - "/etc/libvirt/hooks/qemu.d/arch-pt/prepare/begin"
+    - "/etc/libvirt/hooks/qemu.d/arch-pt/release/end"
+
+- name: Copy libvirt start.sh hook
+  ansible.builtin.template:
+    src: "start.sh.j2"
+    dest: "/etc/libvirt/hooks/qemu.d/arch-pt/prepare/begin/start.sh"
+    owner: root
+    group: root
+    mode: "0644"
+
+- name: Copy libvirt revert.sh hook
+  ansible.builtin.template:
+    src: "revert.sh.j2"
+    dest: "/etc/libvirt/hooks/qemu.d/arch-pt/release/end/revert.sh"
+    owner: root
+    group: root
+    mode: "0644"

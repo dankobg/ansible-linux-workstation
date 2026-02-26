@@ -1,0 +1,42 @@
+#!/usr/bin/env bash
+
+set -x
+
+VIRSH_GPU_VIDEO=pci_0000_01_00_0
+VIRSH_GPU_AUDIO=pci_0000_01_00_1
+VIRSH_USB=pci_0000_03_00_0
+
+DATE=$(date +"%m/%d/%Y %R:%S :")
+echo "$DATE Started revert.sh (rebinding graphics to host)"
+
+echo "Rebinding virtual consoles"
+for vt in /sys/class/vtconsole/vtcon*; do
+    echo 1 > "$vt/bind" 2>/dev/null || true
+done
+
+echo "Rebinding pci devices"
+echo $VIRSH_GPU_VIDEO > "/sys/bus/pci/devices/$VIRSH_GPU_VIDEO/driver/bind"
+echo $VIRSH_GPU_AUDIO > "/sys/bus/pci/devices/$VIRSH_GPU_AUDIO/driver/bind"
+echo $VIRSH_USB > "/sys/bus/pci/devices/$VIRSH_USB/driver/bind"
+
+echo "Rebinding EFI framebuffer"
+echo efi-framebuffer.0 > /sys/bus/platform/drivers/efi-framebuffer/bind 2>/dev/null || true
+
+echo "Reloading nvidia drivers"
+modprobe nvidia_drm
+modprobe nvidia_uvm
+modprobe nvidia_modeset
+modprobe nvidia
+modprobe drm_kms_helper
+modprobe i2c_nvidia_gpu
+modprobe drm
+
+echo "Unloading vfio kernel modules"
+modprobe -r vfio
+modprobe -r vfio_pci
+modprobe -r vfio_iommu_type1
+
+echo "Starting gnome display manager"
+systemctl start gdm.service
+
+echo "$DATE Finished revert.sh (rebinding graphics to host)"
