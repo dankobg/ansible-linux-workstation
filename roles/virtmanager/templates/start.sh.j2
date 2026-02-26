@@ -2,9 +2,9 @@
 
 set -x
 
-VIRSH_GPU_VIDEO=pci_0000_01_00_0
-VIRSH_GPU_AUDIO=pci_0000_01_00_1
-VIRSH_USB=pci_0000_03_00_0
+VIRSH_GPU_VIDEO=0000:01:00.0
+VIRSH_GPU_AUDIO=0000:01:00.1
+VIRSH_USB=0000:03:00.0
 
 DATE=$(date +"%m/%d/%Y %R:%S :")
 echo "$DATE Started start.sh (unbinding graphics from host)"
