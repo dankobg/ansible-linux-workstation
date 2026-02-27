@@ -87,7 +87,7 @@
       - libvirt
     append: true
 
-- name: Ensure libvirt hooks directories exist
+- name: Ensure libvirt vgabios and hooks directories exist
   ansible.builtin.file:
     path: "{{ item }}"
     state: directory
@@ -95,8 +95,25 @@
     group: root
     mode: "0755"
   loop:
+    - "/usr/share/vgabios"
     - "/etc/libvirt/hooks/qemu.d/arch-pt/prepare/begin"
     - "/etc/libvirt/hooks/qemu.d/arch-pt/release/end"
+
+- name: Copy gpu original rom
+  ansible.builtin.copy:
+    src: GP102.rom
+    dest: /usr/share/vgabios
+    owner: root
+    group: root
+    mode: "0644"
+
+- name: Copy gpu patched rom
+  ansible.builtin.copy:
+    src: patched_gp102.rom
+    dest: /usr/share/vgabios
+    owner: root
+    group: root
+    mode: "0644"
 
 - name: Copy libvirt start.sh hook
   ansible.builtin.template:
