@@ -18,6 +18,7 @@ system_common_packages:
   - man-db
   - nano
   - openssl
+  - openssh
   - power-profiles-daemon
   - pwgen
   - sed
