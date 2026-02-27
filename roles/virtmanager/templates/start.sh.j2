@@ -2,41 +2,91 @@
 
 set -x
 
-VIRSH_GPU_VIDEO=0000:01:00.0
-VIRSH_GPU_AUDIO=0000:01:00.1
-VIRSH_USB=0000:03:00.0
+VIRSH_GPU_VIDEO_ID=0000:01:00.0
+VIRSH_GPU_AUDIO_ID=0000:01:00.1
+VIRSH_USB_1_ID=0000:00:14.0
+VIRSH_USB_2_ID=0000:00:14.2
+VIRSH_USB_3_ID=0000:03:00.0
 
-DATE=$(date +"%m/%d/%Y %R:%S :")
-echo "$DATE Started start.sh (unbinding graphics from host)"
+VIRSH_GPU_VIDEO_VD="$(cat /sys/bus/pci/devices/$VIRSH_GPU_VIDEO_ID/vendor) $(cat /sys/bus/pci/devices/$VIRSH_GPU_VIDEO_ID/device)"
+VIRSH_GPU_AUDIO_VD="$(cat /sys/bus/pci/devices/$VIRSH_GPU_AUDIO_ID/vendor) $(cat /sys/bus/pci/devices/$VIRSH_GPU_AUDIO_ID/device)"
+VIRSH_USB_1_VD="$(cat /sys/bus/pci/devices/$VIRSH_USB_1_ID/vendor) $(cat /sys/bus/pci/devices/$VIRSH_USB_1_ID/device)"
+VIRSH_USB_2_VD="$(cat /sys/bus/pci/devices/$VIRSH_USB_2_ID/vendor) $(cat /sys/bus/pci/devices/$VIRSH_USB_2_ID/device)"
+VIRSH_USB_3_VD="$(cat /sys/bus/pci/devices/$VIRSH_USB_3_ID/vendor) $(cat /sys/bus/pci/devices/$VIRSH_USB_3_ID/device)"
+
+function stop_gnome_display_manager {
+  systemctl stop gdm.service
+  systemctl isolate multi-user.target
+}
+
+function bind_vfio {
+  echo "$VIRSH_GPU_VIDEO_ID" > "/sys/bus/pci/devices/$VIRSH_GPU_VIDEO_ID/driver/unbind"
+  echo "$VIRSH_GPU_AUDIO_ID" > "/sys/bus/pci/devices/$VIRSH_GPU_AUDIO_ID/driver/unbind"
+  echo "$VIRSH_USB_1_ID" > "/sys/bus/pci/devices/$VIRSH_USB_1_ID/driver/unbind"
+  echo "$VIRSH_USB_2_ID" > "/sys/bus/pci/devices/$VIRSH_USB_2_ID/driver/unbind"
+  echo "$VIRSH_USB_3_ID" > "/sys/bus/pci/devices/$VIRSH_USB_3_ID/driver/unbind"
+
+  echo "$VIRSH_GPU_VIDEO_VD" > /sys/bus/pci/drivers/vfio-pci/new_id
+  echo "$VIRSH_GPU_AUDIO_VD" > /sys/bus/pci/drivers/vfio-pci/new_id
+  echo "$VIRSH_USB_1_VD" > /sys/bus/pci/drivers/vfio-pci/new_id
+  echo "$VIRSH_USB_2_VD" > /sys/bus/pci/drivers/vfio-pci/new_id
+  echo "$VIRSH_USB_3_VD" > /sys/bus/pci/drivers/vfio-pci/new_id
+}
+
+function unbind_vtconsoles {
+  for vt in /sys/class/vtconsole/vtcon*; do
+    echo 0 > "$vt/bind" 2>/dev/null || true
+  done
+}
+
+function unbind_efi_framebuffer {
+  echo efi-framebuffer.0 > /sys/bus/platform/drivers/efi-framebuffer/unbind 2>/dev/null || true
+}
+
+function load_vfio_kernel_modules {
+  modprobe vfio
+  modprobe vfio_pci
+  modprobe vfio_iommu_type1
+}
+
+function unload_nvidia_drivers {
+  modprobe -r nvidia_drm
+  modprobe -r nvidia_uvm
+  modprobe -r nvidia_modeset
+  modprobe -r nvidia
+  modprobe -r drm_kms_helper
+  modprobe -r i2c_nvidia_gpu
+  modprobe -r drm
+}
+
+echo "Started start.sh (unbinding graphics from host)"
 
 echo "Stopping gnome display manager"
-systemctl stop gdm.service
+stop_gnome_display_manager
+
+sleep 1
 
 echo "Unbinding virtual consoles"
-for vt in /sys/class/vtconsole/vtcon*; do
-  echo 0 > "$vt/bind" 2>/dev/null || true
-done
+unbind_vtconsoles
+
+sleep 1
 
 echo "Unbinding pci devices"
-echo $VIRSH_GPU_VIDEO > "/sys/bus/pci/devices/$VIRSH_GPU_VIDEO/driver/unbind"
-echo $VIRSH_GPU_AUDIO > "/sys/bus/pci/devices/$VIRSH_GPU_AUDIO/driver/unbind"
-echo $VIRSH_USB > "/sys/bus/pci/devices/$VIRSH_USB/driver/unbind"
+bind_vfio
+
+sleep 1
 
 echo "Unbinding EFI framebuffer"
-echo efi-framebuffer.0 > /sys/bus/platform/drivers/efi-framebuffer/unbind 2>/dev/null || true
+unbind_efi_framebuffer
+
+sleep 1
 
 echo "Unloading nvidia drivers"
-modprobe -r nvidia_drm
-modprobe -r nvidia_uvm
-modprobe -r nvidia_modeset
-modprobe -r nvidia
-modprobe -r drm_kms_helper
-modprobe -r i2c_nvidia_gpu
-modprobe -r drm
+unload_nvidia_drivers
+
+sleep 1
 
 echo "Loading vfio kernel modules"
-modprobe vfio
-modprobe vfio_pci
-modprobe vfio_iommu_type1
+load_vfio_kernel_modules
 
-echo "$DATE Finished start.sh (unbinding graphics from host)"
+echo "Finished start.sh (unbinding graphics from host)"
