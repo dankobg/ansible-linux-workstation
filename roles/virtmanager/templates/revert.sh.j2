@@ -4,7 +4,7 @@ set -x
 
 VIRSH_GPU_VIDEO_ID=0000:01:00.0
 VIRSH_GPU_AUDIO_ID=0000:01:00.1
-
+   
 VIRSH_GPU_VIDEO_VD="$(cat /sys/bus/pci/devices/$VIRSH_GPU_VIDEO_ID/vendor) $(cat /sys/bus/pci/devices/$VIRSH_GPU_VIDEO_ID/device)"
 VIRSH_GPU_AUDIO_VD="$(cat /sys/bus/pci/devices/$VIRSH_GPU_AUDIO_ID/vendor) $(cat /sys/bus/pci/devices/$VIRSH_GPU_AUDIO_ID/device)"
 
@@ -58,28 +58,32 @@ echo "Started revert.sh (rebinding graphics to host)"
 echo "Unbinding vfio"
 unbind_vfio
 
-sleep 2
+sleep 3
 
 echo "Unloading vfio kernel modules"
 unload_vfio_kernel_modules
 
-sleep 2
+sleep 3
 
 echo "Reloading nvidia drivers"
 load_nvidia_drivers
 
-sleep 2
+sleep 3
 
 echo "Binding pci devices"
 bind_pci_host_devices
 
-sleep 2
+sleep 3
 
 echo "Rebinding EFI framebuffer"
 bind_efi_framebuffer
 
+sleep 3
+
 echo "Rebinding virtual consoles"
 bind_vtconsoles
+
+sleep 3
 
 echo "Starting gnome display manager"
 start_gnome_display_manager

@@ -54,26 +54,32 @@ echo "Started start.sh (unbinding graphics from host)"
 echo "Stopping gnome display manager"
 stop_gnome_display_manager
 
+sleep 3
+
 echo "Unbinding virtual consoles"
 unbind_vtconsoles
+
+sleep 3
 
 echo "Unbinding EFI framebuffer"
 unbind_efi_framebuffer
 
+sleep 3
+
 echo "Unloading nvidia drivers"
 unload_nvidia_drivers
 
-sleep 2
+sleep 3
 
 echo "Loading vfio kernel modules"
 load_vfio_kernel_modules
 
-sleep 2
+sleep 3
 
 echo "Unbinding pci devices"
 unbind_host_pci_devices
 
-sleep 2
+sleep 3
 
 echo "Binding vfio"
 bind_vfio
