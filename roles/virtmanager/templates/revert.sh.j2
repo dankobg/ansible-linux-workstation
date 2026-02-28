@@ -4,35 +4,21 @@ set -x
 
 VIRSH_GPU_VIDEO_ID=0000:01:00.0
 VIRSH_GPU_AUDIO_ID=0000:01:00.1
-VIRSH_USB_1_ID=0000:00:14.0
-VIRSH_USB_2_ID=0000:00:14.2
-VIRSH_USB_3_ID=0000:03:00.0
 
 VIRSH_GPU_VIDEO_VD="$(cat /sys/bus/pci/devices/$VIRSH_GPU_VIDEO_ID/vendor) $(cat /sys/bus/pci/devices/$VIRSH_GPU_VIDEO_ID/device)"
 VIRSH_GPU_AUDIO_VD="$(cat /sys/bus/pci/devices/$VIRSH_GPU_AUDIO_ID/vendor) $(cat /sys/bus/pci/devices/$VIRSH_GPU_AUDIO_ID/device)"
-VIRSH_USB_1_VD="$(cat /sys/bus/pci/devices/$VIRSH_USB_1_ID/vendor) $(cat /sys/bus/pci/devices/$VIRSH_USB_1_ID/device)"
-VIRSH_USB_2_VD="$(cat /sys/bus/pci/devices/$VIRSH_USB_2_ID/vendor) $(cat /sys/bus/pci/devices/$VIRSH_USB_2_ID/device)"
-VIRSH_USB_3_VD="$(cat /sys/bus/pci/devices/$VIRSH_USB_3_ID/vendor) $(cat /sys/bus/pci/devices/$VIRSH_USB_3_ID/device)"
 
 function unbind_vfio {
   echo "$VIRSH_GPU_VIDEO_VD" > "/sys/bus/pci/drivers/vfio-pci/remove_id"
   echo "$VIRSH_GPU_AUDIO_VD" > "/sys/bus/pci/drivers/vfio-pci/remove_id"
-  echo "$VIRSH_USB_1_VD" > "/sys/bus/pci/drivers/vfio-pci/remove_id"
-  echo "$VIRSH_USB_2_VD" > "/sys/bus/pci/drivers/vfio-pci/remove_id"
-  echo "$VIRSH_USB_3_VD" > "/sys/bus/pci/drivers/vfio-pci/remove_id"
 
   echo 1 > "/sys/bus/pci/devices/$VIRSH_GPU_VIDEO_ID/remove"
   echo 1 > "/sys/bus/pci/devices/$VIRSH_GPU_AUDIO_ID/remove"
-  echo 1 > "/sys/bus/pci/devices/$VIRSH_USB_1_ID/remove"
-  echo 1 > "/sys/bus/pci/devices/$VIRSH_USB_2_ID/remove"
-  echo 1 > "/sys/bus/pci/devices/$VIRSH_USB_3_ID/remove"
+}
 
-  # manually bind again, maybe not needed because of rescan
+function bind_pci_host_devices {
   echo $VIRSH_GPU_VIDEO_ID > "/sys/bus/pci/devices/$VIRSH_GPU_VIDEO_ID/driver/bind"
   echo $VIRSH_GPU_AUDIO_ID > "/sys/bus/pci/devices/$VIRSH_GPU_AUDIO_ID/driver/bind"
-  echo $VIRSH_USB_1_ID > "/sys/bus/pci/devices/$VIRSH_USB_1_ID/driver/bind"
-  echo $VIRSH_USB_2_ID > "/sys/bus/pci/devices/$VIRSH_USB_2_ID/driver/bind"
-  echo $VIRSH_USB_3_ID > "/sys/bus/pci/devices/$VIRSH_USB_3_ID/driver/bind"
 
   echo 1 > "/sys/bus/pci/rescan"
 }
@@ -69,30 +55,31 @@ function start_gnome_display_manager {
 
 echo "Started revert.sh (rebinding graphics to host)"
 
-echo "Rebinding virtual consoles"
-bind_vtconsoles
-
-sleep 1
-
-echo "Rebinding pci devices"
+echo "Unbinding vfio"
 unbind_vfio
 
-sleep 1
-
-echo "Rebinding EFI framebuffer"
-bind_efi_framebuffer
-
-sleep 1
-
-echo "Reloading nvidia drivers"
-load_nvidia_drivers
-
-sleep 1
+sleep 2
 
 echo "Unloading vfio kernel modules"
 unload_vfio_kernel_modules
 
-sleep 1
+sleep 2
+
+echo "Reloading nvidia drivers"
+load_nvidia_drivers
+
+sleep 2
+
+echo "Binding pci devices"
+bind_pci_host_devices
+
+sleep 2
+
+echo "Rebinding EFI framebuffer"
+bind_efi_framebuffer
+
+echo "Rebinding virtual consoles"
+bind_vtconsoles
 
 echo "Starting gnome display manager"
 start_gnome_display_manager
