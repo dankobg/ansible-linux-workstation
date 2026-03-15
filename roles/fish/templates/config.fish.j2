@@ -11,6 +11,9 @@ if set -q GHOSTTY_RESOURCES_DIR
 end
 
 set -U fish_greeting
+if type -q bat
+  set -gx MANPAGER "bat -p -l man"
+end
 if type -q fd
   set -gx FZF_DEFAULT_COMMAND 'fd --type f --strip-cwd-prefix --hidden --follow --exclude .git'
 end

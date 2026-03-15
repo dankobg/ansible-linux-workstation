@@ -11,6 +11,9 @@ fi
 
 [ -f "$ZDOTDIR/.zsh_aliases" ] && source "$ZDOTDIR/.zsh_aliases"
 
+if command -v bat &>/dev/null; then
+  export MANPAGER="bat -p -l man"
+fi
 if command -v fd &>/dev/null; then
 	export FZF_DEFAULT_COMMAND='fd --type f --strip-cwd-prefix --hidden --follow --exclude .git'
 fi
