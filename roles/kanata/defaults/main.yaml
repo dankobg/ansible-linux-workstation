@@ -2,3 +2,4 @@
 # defaults file for kanata
 
 kanata_state: latest
+kanata_config_path: "/home/{{ username }}/.config/kanata/kanata.kbd"

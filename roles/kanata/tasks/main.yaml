@@ -8,3 +8,89 @@
     state: present
   become: true
   become_user: aur_builder
+
+- name: Ensure kanata config directory exists
+  ansible.builtin.file:
+    path: "/home/{{ username }}/.config/kanata"
+    state: directory
+    owner: "{{ username }}"
+    group: "{{ username }}"
+    mode: "0755"
+  register: kanata_config_dir
+
+- name: Copy kanata config file
+  ansible.builtin.template:
+    src: kanata.kbd.j2
+    dest: "{{ kanata_config_dir.path }}/kanata.kbd"
+    owner: "{{ username }}"
+    group: "{{ username }}"
+    mode: "0644"
+
+- name: Copy kanata udev input rule
+  ansible.builtin.template:
+    src: 99-input.rules.j2
+    dest: /etc/udev/rules.d/99-input.rules
+    owner: root
+    group: root
+    mode: "0644"
+
+- name: Ensure group `uinput` exists
+  ansible.builtin.group:
+    name: uinput
+    state: present
+    system: true
+
+- name: Add user to needed groups
+  ansible.builtin.user:
+    name: "{{ username }}"
+    groups:
+      - input
+      - uinput
+    append: true
+
+- name: Reload udev rules
+  become: true
+  become_user: root
+  ansible.builtin.shell:
+    cmd: "udevadm control --reload-rules && udevadm trigger"
+  register: udev_reloaded
+  changed_when: false
+  failed_when: udev_reloaded.rc != 0 and udev_reloaded.stderr != ""
+
+- name: Stat /dev/uinput
+  ansible.builtin.stat:
+    path: /dev/uinput
+  register: uinput_stat
+
+- name: Ensure /dev/uinput exists and is a character device
+  ansible.builtin.assert:
+    that:
+      - uinput_stat.stat.exists
+      - uinput_stat.stat.ischr
+      - uinput_stat.stat.mode == "0660"
+      - uinput_stat.stat.pw_name == "root"
+      - uinput_stat.stat.gr_name == "uinput"
+    fail_msg: "/dev/uinput is missing or has wrong permissions/owner/group"
+
+- name: Ensure kanata systemd override directory exists
+  ansible.builtin.file:
+    path: "/etc/systemd/system/kanata.service.d"
+    state: directory
+    owner: root
+    group: root
+    mode: "0755"
+
+- name: Copy kanata systemd service
+  ansible.builtin.template:
+    src: kanata.service.j2
+    dest: /etc/systemd/system/kanata.service
+    owner: root
+    group: root
+    mode: "0644"
+  notify: Reload systemd daemon
+
+- name: Start and enable kanata service
+  ansible.builtin.service:
+    name: kanata.service
+    state: started
+    enabled: true
