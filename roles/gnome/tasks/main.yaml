@@ -865,6 +865,8 @@
             ]
         - key: /org/gnome/shell/welcome-dialog-last-shown-version
           value: "'100'"
+        - key: /org/gnome/shell/always-show-log-out
+          value: true
 
     - name: Configure software
       community.general.dconf:
