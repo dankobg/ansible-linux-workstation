@@ -4,6 +4,22 @@
   community.general.timezone:
     name: Europe/Belgrade
 
+- name: Copy monitors.xml (system wide)
+  ansible.builtin.template:
+    src: monitors.xml.j2
+    dest: /etc/xdg/monitors.xml
+    owner: root
+    group: root
+    mode: "0644"
+
+- name: Copy monitors.xml (user config)
+  ansible.builtin.template:
+    src: monitors.xml.j2
+    dest: "/home/{{ username }}/.config/monitors.xml"
+    owner: "{{ username }}"
+    group: "{{ username }}"
+    mode: "0644"
+
 - name: Copy mimeapps.list
   ansible.builtin.template:
     src: mimeapps.list.j2
