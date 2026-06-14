@@ -52,13 +52,8 @@
   community.general.pacman:
     name: "{{ system_common_packages }}"
     state: latest
-    force: true
-    extra_args: --noconfirm --overwrite '*'
-
-- name: Remove not needed packages
-  community.general.pacman:
-    name: "{{ system_absent_packages }}"
-    state: absent
+    # force: true
+    # extra_args: --noconfirm --overwrite '*'
 
 - name: Ensure sleep.conf.d directory exists
   ansible.builtin.file:
