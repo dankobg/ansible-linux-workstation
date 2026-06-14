@@ -31,6 +31,9 @@ google_chrome_extensions:
   # redirect yt shorts
   - id: lncinpfgcgmphkebnbfpogkgiaadphpi
     state: present
+  # sponsor block
+  - id: mnjggcdmjocbbbhaepdhchncahnbgone
+    state: present
   # autoscroll
   - id: occjjkgifpmdgodlplnacmkejpdionan
     state: present
