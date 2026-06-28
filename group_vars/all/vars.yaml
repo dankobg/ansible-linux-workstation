@@ -60,7 +60,6 @@ roles_selected:
   - bruno
   - btop
   - czkawka
-  # - davinciresolve
   - dconf_editor
   - delta
   - deno

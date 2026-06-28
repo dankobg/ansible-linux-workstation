@@ -1,6 +1,0 @@
----
-# tasks file for davinciresolve
-
-- name: Install DavinciResolve
-  ansible.builtin.debug:
-    msg: "TODO: Not implemented"
