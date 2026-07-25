@@ -15,9 +15,9 @@
     create: true
     owner: root
     group: root
-    mode: '0755'
-
-# @TODO: figure how to delete aur_builder user
+    mode: "0440"
+#
+# @TODO: do i even want to remove aur_builder user
 # because each aur install role can be called standalone
 # cleanup could be after each role but again, i would be creating, deleting users many times...
 
