@@ -1,7 +1,8 @@
 ---
 # defaults file for system
 
-system_hosts: []
+system_hosts_localhost_entries: []
+system_hosts_extra_entries: []
 
 system_common_packages:
   - "7zip"

@@ -1,4 +1,8 @@
 # Static table lookup for hostnames.
 # See hosts(5) for details.
-127.0.0.1   localhost {{ system_hosts | join(' ') }}
-::1         localhost {{ system_hosts | join(' ') }}
+127.0.0.1   localhost {{ system_hosts_localhost_entries | join(' ') }}
+::1         localhost {{ system_hosts_localhost_entries | join(' ') }}
+
+{% for entry in system_hosts_extra_entries %}
+{{ entry.ip }}   {{ entry.names | join(' ') }}
+{% endfor %}

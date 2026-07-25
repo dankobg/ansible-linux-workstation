@@ -26,10 +26,13 @@ bitwarden_cli_state: absent # conflicts with latest nodejs, it uses lts...
 
 binaries_path: /usr/local/bin
 
-system_hosts:
+system_hosts_localhost_entries:
   - juicer-dev.xyz
   - mail.juicer-dev.xyz
-  - traefik.juicer-dev.xyz
+  - s3.juicer-dev.xyz
+  - fluffly-dev.xyz
+  - mail.fluffly-dev.xyz
+  - s3.fluffly-dev.xyz
 
 roles_selected:
   - aur_builder
