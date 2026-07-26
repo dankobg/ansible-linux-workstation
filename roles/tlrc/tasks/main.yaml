@@ -5,6 +5,6 @@
   kewlfft.aur.aur:
     name: tlrc-bin
     use: paru
-    state: present
+    state: "{{ tlrc_state }}"
   become: true
   become_user: aur_builder

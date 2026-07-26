@@ -1,7 +1,7 @@
 ---
 # defaults file for k3d
 
-k3d_state: present
+k3d_state: latest
 k3d_version: latest
 k3d_binary_name: k3d
 k3d_binary_path: "{{ binaries_path | default('/usr/local/bin') }}/{{ k3d_binary_name }}"

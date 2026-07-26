@@ -5,7 +5,7 @@
   kewlfft.aur.aur:
     name: google-chrome
     use: paru
-    state: present
+    state: "{{ google_chrome_state }}"
   become: true
   become_user: aur_builder
 

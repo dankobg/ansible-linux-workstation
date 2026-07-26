@@ -5,6 +5,6 @@
   kewlfft.aur.aur:
     name: visual-studio-code-bin
     use: paru
-    state: present
+    state: "{{ vscode_state }}"
   become: true
   become_user: aur_builder

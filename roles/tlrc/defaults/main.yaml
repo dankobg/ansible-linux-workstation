@@ -1,7 +1,7 @@
 ---
 # defaults file for tlrc
 
-tlrc_state: present
+tlrc_state: latest
 tlrc_version: latest
 tlrc_binary_name: tldr
 tlrc_binary_path: "{{ binaries_path | default('/usr/local/bin') }}/{{ tlrc_binary_name }}"
