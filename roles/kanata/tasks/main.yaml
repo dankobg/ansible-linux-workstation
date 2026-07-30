@@ -53,23 +53,23 @@
   become_user: root
   ansible.builtin.shell:
     cmd: "udevadm control --reload-rules && udevadm trigger"
-  register: udev_reloaded
+  register: kanata_udev_reloaded
   changed_when: false
-  failed_when: udev_reloaded.rc != 0 and udev_reloaded.stderr != ""
+  failed_when: kanata_udev_reloaded.rc != 0 and kanata_udev_reloaded.stderr != ""
 
 - name: Stat /dev/uinput
   ansible.builtin.stat:
     path: /dev/uinput
-  register: uinput_stat
+  register: kanata_uinput_stat
 
 - name: Ensure /dev/uinput exists and is a character device
   ansible.builtin.assert:
     that:
-      - uinput_stat.stat.exists
-      - uinput_stat.stat.ischr
-      - uinput_stat.stat.mode == "0660"
-      - uinput_stat.stat.pw_name == "root"
-      - uinput_stat.stat.gr_name == "uinput"
+      - kanata_uinput_stat.stat.exists
+      - kanata_uinput_stat.stat.ischr
+      - kanata_uinput_stat.stat.mode == "0660"
+      - kanata_uinput_stat.stat.pw_name == "root"
+      - kanata_uinput_stat.stat.gr_name == "uinput"
     fail_msg: "/dev/uinput is missing or has wrong permissions/owner/group"
 
 - name: Ensure kanata systemd override directory exists

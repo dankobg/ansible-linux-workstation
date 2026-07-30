@@ -1,4 +1,5 @@
 ---
 # defaults file for czkawka
 
+czkawka_enabled: true
 czkawka_state: latest

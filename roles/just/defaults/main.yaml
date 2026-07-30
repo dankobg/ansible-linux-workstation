@@ -1,4 +1,5 @@
 ---
 # defaults file for just
 
+just_enabled: true
 just_state: latest

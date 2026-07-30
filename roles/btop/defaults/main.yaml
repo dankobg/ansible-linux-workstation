@@ -1,4 +1,5 @@
 ---
 # defaults file for btop
 
+btop_enabled: true
 btop_state: latest

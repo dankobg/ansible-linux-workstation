@@ -1,4 +1,5 @@
 ---
 # defaults file for zoxide
 
+zoxide_enabled: true
 zoxide_state: latest

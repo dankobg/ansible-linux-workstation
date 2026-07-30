@@ -1,4 +1,5 @@
 ---
 # defaults file for bruno
 
+bruno_enabled: true
 bruno_state: latest

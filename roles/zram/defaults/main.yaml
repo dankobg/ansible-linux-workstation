@@ -1,4 +1,5 @@
 ---
 # defaults file for zram
 
+zram_enabled: true
 zram_size: 8192

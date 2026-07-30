@@ -1,4 +1,5 @@
 ---
 # defaults file for jq
 
+jq_enabled: true
 jq_state: latest

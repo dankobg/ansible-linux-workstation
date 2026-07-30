@@ -1,4 +1,5 @@
 ---
 # defaults file for fish
 
+fish_enabled: true
 fish_state: latest

@@ -1,4 +1,5 @@
 ---
 # defaults file for vscode
 
+vscode_enabled: true
 vscode_state: latest

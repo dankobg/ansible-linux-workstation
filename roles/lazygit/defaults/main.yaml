@@ -1,4 +1,5 @@
 ---
 # defaults file for lazygit
 
+lazygit_enabled: true
 lazygit_state: latest

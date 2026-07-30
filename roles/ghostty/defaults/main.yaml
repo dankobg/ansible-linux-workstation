@@ -1,4 +1,5 @@
 ---
 # defaults file for ghostty
 
+ghostty_enabled: true
 ghostty_state: latest

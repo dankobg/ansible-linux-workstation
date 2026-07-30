@@ -1,4 +1,5 @@
 ---
 # defaults file for eza
 
+eza_enabled: true
 eza_state: latest

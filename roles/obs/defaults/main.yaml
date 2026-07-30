@@ -1,4 +1,5 @@
 ---
 # defaults file for obs
 
+obs_enabled: true
 obs_state: latest

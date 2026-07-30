@@ -1,4 +1,5 @@
 ---
 # defaults file for libreoffice
 
+libreoffice_enabled: true
 libreoffice_state: latest

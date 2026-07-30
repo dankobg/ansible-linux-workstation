@@ -1,4 +1,5 @@
 ---
 # defaults file for direnv
 
+direnv_enabled: true
 direnv_state: latest

@@ -1,4 +1,5 @@
 ---
 # defaults file for sops
 
+sops_enabled: true
 sops_state: latest

@@ -1,4 +1,5 @@
 ---
 # defaults file for git
 
+git_enabled: true
 git_state: latest

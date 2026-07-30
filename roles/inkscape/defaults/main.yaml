@@ -1,4 +1,5 @@
 ---
 # defaults file for inkscape
 
+inkscape_enabled: true
 inkscape_state: latest

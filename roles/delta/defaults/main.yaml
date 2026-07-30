@@ -1,4 +1,5 @@
 ---
 # defaults file for delta
 
+delta_enabled: true
 delta_state: latest

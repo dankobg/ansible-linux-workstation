@@ -1,4 +1,5 @@
 ---
 # defaults file for task
 
+task_enabled: true
 task_state: latest

@@ -1,4 +1,5 @@
 ---
 # defaults file for thunderbird
 
+thunderbird_enabled: true
 thunderbird_state: latest

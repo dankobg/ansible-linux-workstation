@@ -1,6 +1,7 @@
 ---
 # defaults file for fonts
 
+fonts_enabled: true
 fonts_packages:
   - name: noto-fonts
     state: latest

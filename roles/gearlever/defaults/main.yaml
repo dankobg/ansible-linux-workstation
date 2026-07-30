@@ -1,4 +1,5 @@
 ---
 # defaults file for gearlever
 
+gearlever_enabled: true
 gearlever_state: latest

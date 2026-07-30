@@ -1,4 +1,5 @@
 ---
 # defaults file for beekeeper_studio
 
+beekeeper_studio_enabled: true
 beekeeper_studio_state: latest

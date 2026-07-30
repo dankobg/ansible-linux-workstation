@@ -1,4 +1,5 @@
 ---
 # defaults file for fastfetch
 
+fastfetch_enabled: true
 fastfetch_state: latest

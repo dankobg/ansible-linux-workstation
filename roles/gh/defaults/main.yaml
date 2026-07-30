@@ -1,4 +1,5 @@
 ---
 # defaults file for gh
 
+gh_enabled: true
 gh_state: latest

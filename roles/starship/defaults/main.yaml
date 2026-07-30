@@ -1,4 +1,5 @@
 ---
 # defaults file for starship
 
+starship_enabled: true
 starship_state: latest

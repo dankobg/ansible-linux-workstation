@@ -1,6 +1,7 @@
 ---
 # defaults file for user
 
+user_enabled: true
 user_groups:
   - "{{ username }}"
   - wheel

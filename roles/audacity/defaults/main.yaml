@@ -1,4 +1,5 @@
 ---
 # defaults file for audacity
 
+audacity_enabled: true
 audacity_state: latest

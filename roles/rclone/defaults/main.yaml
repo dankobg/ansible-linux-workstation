@@ -1,4 +1,5 @@
 ---
 # defaults file for rclone
 
+rclone_enabled: true
 rclone_state: latest

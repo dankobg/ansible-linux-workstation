@@ -1,4 +1,5 @@
 ---
 # defaults file for helm
 
+helm_enabled: true
 helm_state: latest

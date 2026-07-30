@@ -1,4 +1,5 @@
 ---
 # defaults file for syncthing
 
+syncthing_enabled: true
 syncthing_state: latest

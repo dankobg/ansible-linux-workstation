@@ -8,15 +8,325 @@
   become_user: root
   gather_facts: true
 
-  tasks:
-    - name: Include selected roles
-      ansible.builtin.include_role:
-        name: "{{ role_item }}"
-        apply:
-          tags:
-            - "{{ role_item }}"
-      loop: "{{ roles_selected }}"
-      loop_control:
-        loop_var: role_item
-      tags:
-        - always
+  roles:
+    - role: aur_builder
+      tags: [aur_builder]
+      when: aur_builder_enabled
+    - role: pacman
+      tags: [pacman]
+      when: pacman_enabled
+    - role: zsh
+      tags: [zsh]
+      when: zsh_enabled
+    - role: fish
+      tags: [fish]
+      when: fish_enabled
+    - role: system
+      tags: [system]
+      when: system_enabled
+    # - role: nvidia
+    #   tags: [nvidia]
+    #   when: nvidia_enabled
+    - role: firmware
+      tags: [firmware]
+      when: firmware_enabled
+    - role: grub
+      tags: [grub]
+      when: grub_enabled
+    - role: fstrim
+      tags: [fstrim]
+      when: fstrim_enabled
+    - role: zram
+      tags: [zram]
+      when: zram_enabled
+    - role: user
+      tags: [user]
+      when: user_enabled
+    - role: ssh
+      tags: [ssh]
+      when: ssh_enabled
+    - role: multimedia
+      tags: [multimedia]
+      when: multimedia_enabled
+    - role: flatpak
+      tags: [flatpak]
+      when: flatpak_enabled
+    - role: fonts
+      tags: [fonts]
+      when: fonts_enabled
+    - role: gnome
+      tags: [gnome]
+      when: gnome_enabled
+    - role: nautilus
+      tags: [nautilus]
+      when: nautilus_enabled
+    - role: age
+      tags: [age]
+      when: age_enabled
+    - role: ansible
+      tags: [ansible]
+      when: ansible_enabled
+    - role: audacity
+      tags: [audacity]
+      when: audacity_enabled
+    - role: bat
+      tags: [bat]
+      when: bat_enabled
+    - role: beekeeper_studio
+      tags: [beekeeper_studio]
+      when: beekeeper_studio_enabled
+    - role: bitwarden
+      tags: [bitwarden]
+      when: bitwarden_enabled
+    - role: bleachbit
+      tags: [bleachbit]
+      when: bleachbit_enabled
+    # - role: blender
+    #   tags: [blender]
+    #   when: blender_enabled
+    - role: bruno
+      tags: [bruno]
+      when: bruno_enabled
+    - role: btop
+      tags: [btop]
+      when: btop_enabled
+    - role: czkawka
+      tags: [czkawka]
+      when: czkawka_enabled
+    - role: dconf_editor
+      tags: [dconf_editor]
+      when: dconf_editor_enabled
+    - role: delta
+      tags: [delta]
+      when: delta_enabled
+    - role: deno
+      tags: [deno]
+      when: deno_enabled
+    - role: direnv
+      tags: [direnv]
+      when: direnv_enabled
+    - role: discord
+      tags: [discord]
+      when: discord_enabled
+    - role: docker
+      tags: [docker]
+      when: docker_enabled
+    - role: dust
+      tags: [dust]
+      when: dust_enabled
+    - role: extension_manager
+      tags: [extension_manager]
+      when: extension_manager_enabled
+    - role: eza
+      tags: [eza]
+      when: eza_enabled
+    - role: fastfetch
+      tags: [fastfetch]
+      when: fastfetch_enabled
+    - role: fd
+      tags: [fd]
+      when: fd_enabled
+    - role: firefox
+      tags: [firefox]
+      when: firefox_enabled
+    - role: flatseal
+      tags: [flatseal]
+      when: flatseal_enabled
+    - role: fzf
+      tags: [fzf]
+      when: fzf_enabled
+    - role: gearlever
+      tags: [gearlever]
+      when: gearlever_enabled
+    - role: gh
+      tags: [gh]
+      when: gh_enabled
+    - role: ghostty
+      tags: [ghostty]
+      when: ghostty_enabled
+    - role: gimp
+      tags: [gimp]
+      when: gimp_enabled
+    - role: git
+      tags: [git]
+      when: git_enabled
+    - role: glow
+      tags: [glow]
+      when: glow_enabled
+    - role: go
+      tags: [go]
+      when: go_enabled
+    - role: google_chrome
+      tags: [google_chrome]
+      when: google_chrome_enabled
+    - role: handbrake
+      tags: [handbrake]
+      when: handbrake_enabled
+    - role: helix
+      tags: [helix]
+      when: helix_enabled
+    - role: helm
+      tags: [helm]
+      when: helm_enabled
+    - role: inkscape
+      tags: [inkscape]
+      when: inkscape_enabled
+    - role: jq
+      tags: [jq]
+      when: jq_enabled
+    - role: just
+      tags: [just]
+      when: just_enabled
+    - role: k3d
+      tags: [k3d]
+      when: k3d_enabled
+    - role: k9s
+      tags: [k9s]
+      when: k9s_enabled
+    - role: kanata
+      tags: [kanata]
+      when: kanata_enabled
+    - role: kde_connect
+      tags: [kde_connect]
+      when: kde_connect_enabled
+    # - role: kdenlive
+    #   tags: [kdenlive]
+    #   when: kdenlive_enabled
+    # - role: krita
+    #   tags: [krita]
+    #   when: krita_enabled
+    - role: ksops
+      tags: [ksops]
+      when: ksops_enabled
+    - role: kubectl
+      tags: [kubectl]
+      when: kubectl_enabled
+    - role: kubie
+      tags: [kubie]
+      when: kubie_enabled
+    - role: kustomize
+      tags: [kustomize]
+      when: kustomize_enabled
+    - role: lazydocker
+      tags: [lazydocker]
+      when: lazydocker_enabled
+    - role: lazygit
+      tags: [lazygit]
+      when: lazygit_enabled
+    - role: libreoffice
+      tags: [libreoffice]
+      when: libreoffice_enabled
+    - role: localsend
+      tags: [localsend]
+      when: localsend_enabled
+    - role: logseq
+      tags: [logseq]
+      when: logseq_enabled
+    - role: mkcert
+      tags: [mkcert]
+      when: mkcert_enabled
+    - role: ncdu
+      tags: [ncdu]
+      when: ncdu_enabled
+    - role: network_tools
+      tags: [network_tools]
+      when: network_tools_enabled
+    - role: nix
+      tags: [nix]
+      when: nix_enabled
+    - role: node
+      tags: [node]
+      when: node_enabled
+    # - role: obs
+    #   tags: [obs]
+    #   when: obs_enabled
+    - role: onefetch
+      tags: [onefetch]
+      when: onefetch_enabled
+    - role: pika_backup
+      tags: [pika_backup]
+      when: pika_backup_enabled
+    - role: protoc
+      tags: [protoc]
+      when: protoc_enabled
+    - role: python
+      tags: [python]
+      when: python_enabled
+    - role: qbittorrent
+      tags: [qbittorrent]
+      when: qbittorrent_enabled
+    - role: rclone
+      tags: [rclone]
+      when: rclone_enabled
+    - role: restic
+      tags: [restic]
+      when: restic_enabled
+    - role: ripgrep
+      tags: [ripgrep]
+      when: ripgrep_enabled
+    - role: rsync
+      tags: [rsync]
+      when: rsync_enabled
+    - role: rust
+      tags: [rust]
+      when: rust_enabled
+    - role: sd
+      tags: [sd]
+      when: sd_enabled
+    - role: slack
+      tags: [slack]
+      when: slack_enabled
+    - role: smartmontools
+      tags: [smartmontools]
+      when: smartmontools_enabled
+    - role: smile
+      tags: [smile]
+      when: smile_enabled
+    - role: sops
+      tags: [sops]
+      when: sops_enabled
+    - role: starship
+      tags: [starship]
+      when: starship_enabled
+    - role: syncthing
+      tags: [syncthing]
+      when: syncthing_enabled
+    - role: task
+      tags: [task]
+      when: task_enabled
+    - role: thunderbird
+      tags: [thunderbird]
+      when: thunderbird_enabled
+    - role: timeshift
+      tags: [timeshift]
+      when: timeshift_enabled
+    - role: tlrc
+      tags: [tlrc]
+      when: tlrc_enabled
+    - role: virtmanager
+      tags: [virtmanager]
+      when: virtmanager_enabled
+    - role: vlc
+      tags: [vlc]
+      when: vlc_enabled
+    - role: vscode
+      tags: [vscode]
+      when: vscode_enabled
+    - role: xh
+      tags: [xh]
+      when: xh_enabled
+    - role: yazi
+      tags: [yazi]
+      when: yazi_enabled
+    - role: yq
+      tags: [yq]
+      when: yq_enabled
+    - role: zed
+      tags: [zed]
+      when: zed_enabled
+    - role: zellij
+      tags: [zellij]
+      when: zellij_enabled
+    - role: zoxide
+      tags: [zoxide]
+      when: zoxide_enabled

@@ -1,4 +1,5 @@
 ---
 # defaults file for fd
 
+fd_enabled: true
 fd_state: latest

@@ -1,4 +1,5 @@
 ---
 # defaults file for fzf
 
+fzf_enabled: true
 fzf_state: latest

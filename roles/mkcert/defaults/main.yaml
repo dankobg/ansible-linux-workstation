@@ -1,4 +1,5 @@
 ---
 # defaults file for mkcert
 
+mkcert_enabled: true
 mkcert_state: latest

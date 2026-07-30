@@ -1,4 +1,5 @@
 ---
 # defaults file for localsend
 
+localsend_enabled: true
 localsend_state: latest

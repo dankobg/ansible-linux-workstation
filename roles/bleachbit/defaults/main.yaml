@@ -1,4 +1,5 @@
 ---
 # defaults file for bleachbit
 
+bleachbit_enabled: true
 bleachbit_state: latest

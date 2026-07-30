@@ -1,4 +1,5 @@
 ---
 # defaults file for timeshift
 
+timeshift_enabled: true
 timeshift_state: latest

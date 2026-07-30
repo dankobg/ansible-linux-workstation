@@ -1,4 +1,5 @@
 ---
 # defaults file for deno
 
+deno_enabled: true
 deno_state: latest

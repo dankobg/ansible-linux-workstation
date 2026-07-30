@@ -1,4 +1,5 @@
 ---
 # defaults file for flatseal
 
+flatseal_enabled: true
 flatseal_state: latest

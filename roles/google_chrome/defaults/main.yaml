@@ -1,6 +1,7 @@
 ---
 # defaults file for google_chrome
 
+google_chrome_enabled: true
 google_chrome_state: latest
 google_chrome_managed_policies_dir: /etc/opt/chrome/policies/managed
 

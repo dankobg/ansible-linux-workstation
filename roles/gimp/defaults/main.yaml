@@ -1,4 +1,5 @@
 ---
 # defaults file for gimp
 
+gimp_enabled: true
 gimp_state: latest

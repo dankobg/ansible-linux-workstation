@@ -1,4 +1,5 @@
 ---
 # defaults file for yq
 
+yq_enabled: true
 yq_state: latest

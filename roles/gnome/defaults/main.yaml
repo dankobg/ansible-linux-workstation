@@ -1,6 +1,7 @@
 ---
 # defaults file for gnome
 
+gnome_enabled: true
 gnome_group_packages:
   - gnome
 

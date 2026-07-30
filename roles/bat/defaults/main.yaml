@@ -1,4 +1,5 @@
 ---
 # defaults file for bat
 
+bat_enabled: true
 bat_state: latest

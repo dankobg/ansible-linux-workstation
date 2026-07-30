@@ -1,4 +1,5 @@
 ---
 # defaults file for protoc
 
+protoc_enabled: true
 protoc_state: latest

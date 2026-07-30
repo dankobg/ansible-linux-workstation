@@ -1,4 +1,5 @@
 ---
 # defaults file for kubectl
 
+kubectl_enabled: true
 kubectl_state: latest

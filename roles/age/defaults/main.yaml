@@ -1,4 +1,5 @@
 ---
 # defaults file for age
 
+age_enabled: true
 age_state: latest

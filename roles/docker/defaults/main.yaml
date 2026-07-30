@@ -1,4 +1,5 @@
 ---
 # defaults file for docker
 
+docker_enabled: true
 docker_state: latest

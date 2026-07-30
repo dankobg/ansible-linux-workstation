@@ -1,4 +1,5 @@
 ---
 # defaults file for kubie
 
+kubie_enabled: true
 kubie_state: latest

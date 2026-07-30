@@ -1,6 +1,7 @@
 ---
 # defaults file for restic
 
+restic_enabled: true
 restic_state: present
 restic_version: latest
 restic_binary_name: restic

@@ -1,4 +1,5 @@
 ---
 # defaults file for qbittorrent
 
+qbittorrent_enabled: true
 qbittorrent_state: latest

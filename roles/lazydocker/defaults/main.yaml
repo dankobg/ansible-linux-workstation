@@ -1,4 +1,5 @@
 ---
 # defaults file for lazydocker
 
+lazydocker_enabled: true
 lazydocker_state: latest

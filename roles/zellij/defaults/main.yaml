@@ -1,4 +1,5 @@
 ---
 # defaults file for zellij
 
+zellij_enabled: true
 zellij_state: latest

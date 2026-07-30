@@ -1,4 +1,5 @@
 ---
 # defaults file for helix
 
+helix_enabled: true
 helix_state: latest
