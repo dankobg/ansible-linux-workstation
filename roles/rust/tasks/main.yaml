@@ -9,8 +9,8 @@
     group: "{{ username }}"
     mode: "0755"
   loop:
-    - /usr/local/lib/cargo
-    - /usr/local/lib/rustup
+    - "/home/{{ username }}/.local/share/cargo"
+    - "/home/{{ username }}/.local/share/rustup"
 
 - name: Manage rust toolchain with rustup
   when: rust_installation_method == 'rustup'

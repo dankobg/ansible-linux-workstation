@@ -43,6 +43,6 @@
     path: "{{ item }}"
     state: absent
   loop:
-    - /usr/local/lib/npm-global
+    - "/home/{{ username }}/.local/share/npm-global"
     - /etc/npmrc
   when: node_state == 'absent'
