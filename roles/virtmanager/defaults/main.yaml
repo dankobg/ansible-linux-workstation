@@ -1,5 +1,4 @@
 ---
 # defaults file for virtmanager
 
-virtmanager_enabled: true
 virtmanager_state: latest

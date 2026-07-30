@@ -1,5 +1,4 @@
 ---
 # defaults file for zed
 
-zed_enabled: true
 zed_state: latest

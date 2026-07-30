@@ -1,7 +1,6 @@
 ---
 # defaults file for tlrc
 
-tlrc_enabled: true
 tlrc_state: latest
 tlrc_version: latest
 tlrc_binary_name: tldr

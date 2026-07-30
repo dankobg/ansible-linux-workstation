@@ -1,5 +1,4 @@
 ---
 # defaults file for glow
 
-glow_enabled: true
 glow_state: latest

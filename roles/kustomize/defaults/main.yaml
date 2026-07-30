@@ -1,5 +1,4 @@
 ---
 # defaults file for kustomize
 
-kustomize_enabled: true
 kustomize_state: latest

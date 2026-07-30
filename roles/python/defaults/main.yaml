@@ -1,5 +1,4 @@
 ---
 # defaults file for python
 
-python_enabled: true
 python_state: latest

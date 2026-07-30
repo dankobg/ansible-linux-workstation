@@ -1,5 +1,4 @@
 ---
 # defaults file for firmware
 
-firmware_enabled: true
 firmware_state: latest

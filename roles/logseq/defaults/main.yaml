@@ -1,5 +1,4 @@
 ---
 # defaults file for logseq
 
-logseq_enabled: true
 logseq_state: latest

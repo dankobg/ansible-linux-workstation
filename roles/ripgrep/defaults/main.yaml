@@ -1,5 +1,4 @@
 ---
 # defaults file for ripgrep
 
-ripgrep_enabled: true
 ripgrep_state: latest

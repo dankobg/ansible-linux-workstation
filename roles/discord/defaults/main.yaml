@@ -1,5 +1,4 @@
 ---
 # defaults file for discord
 
-discord_enabled: true
 discord_state: latest

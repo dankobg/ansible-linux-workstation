@@ -1,7 +1,6 @@
 ---
 # defaults file for extension_manager
 
-extension_manager_enabled: true
 extension_manager_state: latest
 
 extension_manager_gnome_extensions_dir: "/home/{{ username }}/.local/share/gnome-shell/extensions"

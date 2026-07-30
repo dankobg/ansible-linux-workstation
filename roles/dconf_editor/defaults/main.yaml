@@ -1,5 +1,4 @@
 ---
 # defaults file for dconf_editor
 
-dconf_editor_enabled: true
 dconf_editor_state: latest

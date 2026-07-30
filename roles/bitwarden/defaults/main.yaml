@@ -1,6 +1,5 @@
 ---
 # defaults file for bitwarden
 
-bitwarden_enabled: true
 bitwarden_state: latest
 bitwarden_cli_state: latest

@@ -1,5 +1,4 @@
 ---
 # defaults file for smile
 
-smile_enabled: true
 smile_state: latest

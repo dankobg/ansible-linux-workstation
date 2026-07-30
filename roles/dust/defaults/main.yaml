@@ -1,5 +1,4 @@
 ---
 # defaults file for dust
 
-dust_enabled: true
 dust_state: latest

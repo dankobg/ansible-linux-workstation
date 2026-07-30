@@ -1,5 +1,4 @@
 ---
 # defaults file for pika_backup
 
-pika_backup_enabled: true
 pika_backup_state: latest

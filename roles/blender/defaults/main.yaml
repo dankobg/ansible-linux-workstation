@@ -1,5 +1,4 @@
 ---
 # defaults file for blender
 
-blender_enabled: true
 blender_state: latest

@@ -1,7 +1,6 @@
 ---
 # defaults file for grub
 
-grub_enabled: true
 grub_default: Windows
 grub_default_fallback: saved
 grub_os_prober_state: latest

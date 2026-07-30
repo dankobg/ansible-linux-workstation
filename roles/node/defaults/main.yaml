@@ -1,7 +1,6 @@
 ---
 # defaults file for node
 
-node_enabled: true
 node_state: latest
 node_npm_global_dir: /usr/local/lib/npm-global
 

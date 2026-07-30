@@ -1,5 +1,4 @@
 ---
 # defaults file for vlc
 
-vlc_enabled: true
 vlc_state: latest

@@ -1,5 +1,4 @@
 ---
 # defaults file for sd
 
-sd_enabled: true
 sd_state: latest

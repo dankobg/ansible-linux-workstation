@@ -1,7 +1,6 @@
 ---
 # defaults file for go
 
-go_enabled: true
 go_state: latest
 go_gopath_dir: /usr/local/lib/go
 

@@ -1,5 +1,4 @@
 ---
 # defaults file for ncdu
 
-ncdu_enabled: true
 ncdu_state: latest

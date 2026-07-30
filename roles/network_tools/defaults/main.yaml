@@ -1,7 +1,6 @@
 ---
 # defaults file for network_tools
 
-network_tools_enabled: true
 network_tools_apps:
   - name: net-tools
     state: latest

@@ -1,5 +1,4 @@
 ---
 # defaults file for yazi
 
-yazi_enabled: true
 yazi_state: latest

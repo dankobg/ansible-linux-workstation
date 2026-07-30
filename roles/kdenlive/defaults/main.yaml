@@ -1,5 +1,4 @@
 ---
 # defaults file for kdenlive
 
-kdenlive_enabled: true
 kdenlive_state: latest

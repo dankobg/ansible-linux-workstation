@@ -1,7 +1,6 @@
 ---
 # defaults file for system
 
-system_enabled: true
 system_hosts_localhost_entries: []
 system_hosts_extra_entries: []
 

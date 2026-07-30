@@ -1,5 +1,4 @@
 ---
 # defaults file for krita
 
-krita_enabled: true
 krita_state: latest

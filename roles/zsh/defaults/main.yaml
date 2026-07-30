@@ -1,5 +1,4 @@
 ---
 # defaults file for zsh
 
-zsh_enabled: true
 zsh_state: latest

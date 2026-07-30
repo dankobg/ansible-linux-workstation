@@ -1,5 +1,4 @@
 ---
 # defaults file for handbrake
 
-handbrake_enabled: true
 handbrake_state: latest

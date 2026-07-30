@@ -1,7 +1,6 @@
 ---
 # defaults file for ksops
 
-ksops_enabled: true
 ksops_state: latest
 ksops_version: latest
 ksops_binary_name: ksops

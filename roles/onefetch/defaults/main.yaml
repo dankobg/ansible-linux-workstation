@@ -1,5 +1,4 @@
 ---
 # defaults file for onefetch
 
-onefetch_enabled: true
 onefetch_state: latest

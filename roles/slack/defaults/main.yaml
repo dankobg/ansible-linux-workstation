@@ -1,5 +1,4 @@
 ---
 # defaults file for slack
 
-slack_enabled: true
 slack_state: latest
