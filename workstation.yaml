@@ -84,6 +84,9 @@
     # - role: blender
     #   tags: [blender]
     #   when: blender_enabled | default(true)
+    - role: brave
+      tags: [brave]
+      when: brave_enabled | default(true)
     - role: bruno
       tags: [bruno]
       when: bruno_enabled | default(true)

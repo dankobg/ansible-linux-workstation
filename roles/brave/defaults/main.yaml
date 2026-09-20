@@ -1,0 +1,5 @@
+---
+# defaults file for brave
+
+brave_state: latest
+brave_managed_policies_dir: /etc/brave/policies/managed
