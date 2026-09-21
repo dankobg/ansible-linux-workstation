@@ -82,6 +82,22 @@
         value: auto
         state: present
 
+    - name: Set delta navigate options
+      community.general.git_config:
+        file: "{{ git_config_file.dest }}"
+        name: delta.navigate
+        scope: file
+        value: true
+        state: present
+
+    - name: Set delta dark options
+      community.general.git_config:
+        file: "{{ git_config_file.dest }}"
+        name: delta.dark
+        scope: file
+        value: true
+        state: present
+
     - name: Set diff algorithm
       community.general.git_config:
         file: "{{ git_config_file.dest }}"
@@ -106,6 +122,14 @@
         value: "{{ git_core_editor }}"
         state: present
 
+    - name: Set core pager
+      community.general.git_config:
+        file: "{{ git_config_file.dest }}"
+        name: core.pager
+        scope: file
+        value: "delta"
+        state: present
+
     - name: Set user name
       community.general.git_config:
         file: "{{ git_config_file.dest }}"
@@ -128,6 +152,22 @@
         name: init.defaultBranch
         scope: file
         value: main
+        state: present
+
+    - name: Set interactive diffFilter
+      community.general.git_config:
+        file: "{{ git_config_file.dest }}"
+        name: interactive.diffFilter
+        scope: file
+        value: "delta --color-only"
+        state: present
+
+    - name: Set conflictStyle to zdiff3
+      community.general.git_config:
+        file: "{{ git_config_file.dest }}"
+        name: merge.conflictStyle
+        scope: file
+        value: "zdiff3"
         state: present
 
     - name: Set rebase autoSquash
