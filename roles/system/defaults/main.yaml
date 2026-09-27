@@ -17,6 +17,7 @@ system_common_packages:
   - less
   - make
   - man-db
+  - man-pages
   - nano
   - openssl
   - openssh
