@@ -18,15 +18,6 @@
     cmd: flatpak update --appstream
   changed_when: false
 
-- name: Copy flatpak-manager systemd service
-  ansible.builtin.template:
-    src: flatpak-manager.service.j2
-    dest: /etc/systemd/system/flatpak-manager.service
-    owner: root
-    group: root
-    mode: "0644"
-  notify: Reload systemd daemon
-
 - name: Copy flatpak-manager systemd service and timer files
   ansible.builtin.template:
     src: "{{ item }}.j2"
