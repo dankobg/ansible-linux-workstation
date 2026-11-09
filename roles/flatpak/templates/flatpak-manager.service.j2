@@ -1,0 +1,16 @@
+# flatpak-manager.service
+
+[Unit]
+Description=Flatpak Manager
+Documentation=man:flatpak(1)
+Wants=network-online.target
+After=network-online.target
+
+[Service]
+Environment=XDG_DATA_DIRS=/var/lib/flatpak/exports/share:/usr/local/share:/usr/share
+Type=oneshot
+ExecStart=/usr/bin/flatpak --system update --noninteractive
+ExecStart=/usr/bin/flatpak --system uninstall --unused --noninteractive
+Restart=on-failure
+RestartSec=3
+Nice=10

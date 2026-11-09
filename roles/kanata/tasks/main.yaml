@@ -72,14 +72,6 @@
       - kanata_uinput_stat.stat.gr_name == "uinput"
     fail_msg: "/dev/uinput is missing or has wrong permissions/owner/group"
 
-- name: Ensure kanata systemd override directory exists
-  ansible.builtin.file:
-    path: "/etc/systemd/system/kanata.service.d"
-    state: directory
-    owner: root
-    group: root
-    mode: "0755"
-
 - name: Copy kanata systemd service
   ansible.builtin.template:
     src: kanata.service.j2

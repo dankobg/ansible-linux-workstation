@@ -1,0 +1,13 @@
+# flatpak-manager.timer
+
+[Unit]
+Description=Run Flatpak Manager daily
+
+[Timer]
+Unit=flatpak-manager.service
+OnCalendar=daily
+Persistent=true
+RandomizeDelaySec=1h
+
+[Install]
+WantedBy=timers.target
